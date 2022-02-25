@@ -1,3 +1,5 @@
+-- from https://gist.github.com/MunifTanjim/8d9498c096719bdf4234321230fe3dc7
+
 local Input = require('nui.input')
 
 local function rename()

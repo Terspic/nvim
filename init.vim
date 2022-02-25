@@ -11,6 +11,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind-nvim'
 " snippets
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
@@ -28,9 +29,7 @@ Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'tmsvg/pear-tree'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'onsails/lspkind-nvim'
 Plug 'sindrets/winshift.nvim'
-Plug 'folke/trouble.nvim'
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
 
@@ -75,8 +74,8 @@ set updatetime=100
 set encoding=utf-8
 set splitbelow splitright
 set nobackup nowritebackup
-set nocompatible
 let mapleader = "ù"
+
 
 """ ======================
 """   Nord Configuration
@@ -162,20 +161,16 @@ let g:nvim_tree_icons = {
 lua << EOF
 require('nvim-tree').setup{
 	disable_netrw = true,
-	hijack_netrw = true,
-	open_on_setup = true,
+	hijack_unnamed_buffer_when_opening = false,
 	auto_close = true,
-	open_on_tab = true,
+	update_cwd = true,
 	git = {
 		enable = true,
 		ignore = false,
 	},
 	filters = {
-		dotfiles = false,
-		custom = { '.git', }
-	},
-	diagnostics = {
-		enable = true,
+		dotfiles = true,
+		custom = { ".git" },
 	},
 	view = {
 		auto_resize = true,
@@ -226,7 +221,7 @@ require('lualine').setup {
 	},
 	inactive_sections = {
 		lualine_a = {},
-		lualine_b = {},
+		lualine_b = {'filename'},
 		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {},
@@ -245,16 +240,6 @@ let g:pear_tree_repeatable_expand = 0
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
 let g:pear_tree_smart_backspaces = 1
-
-
-""" =========================
-"""   Trouble COnfiguration 
-""" =========================
-lua << EOF
-require('trouble').setup({
-	auto_close = true,
-})
-EOF
 
 
 """ ===========================
@@ -295,6 +280,19 @@ dap.configurations.rust = {
     	type = "lldb",
     	request = "launch",
     	program = function()
+			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+    	end,
+    	cwd = '${workspaceFolder}',
+    	stopOnEntry = false,
+    	args = {},
+	}
+}
+dap.configurations.cpp = {
+	{
+		name = "Launch",
+    	type = "lldb",
+    	request = "launch",
+    	program = function()
 			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     	end,
     	cwd = '${workspaceFolder}',
@@ -302,6 +300,7 @@ dap.configurations.rust = {
     	args = {},
 	}
 }
+dap.configurations.c = dap.configuration.cpp
 EOF
 nnoremap <silent><F5> :lua require'dap'.continue()<CR>
 nnoremap <silent><F10> :lua require'dap'.step_over()<CR>
