@@ -300,7 +300,7 @@ dap.configurations.cpp = {
     	args = {},
 	}
 }
-dap.configurations.c = dap.configuration.cpp
+dap.configurations.c = dap.configurations.cpp
 EOF
 nnoremap <silent><F5> :lua require'dap'.continue()<CR>
 nnoremap <silent><F10> :lua require'dap'.step_over()<CR>
