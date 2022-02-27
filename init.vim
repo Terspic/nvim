@@ -86,26 +86,26 @@ let g:nord_italic_comment = 1
 colorscheme nord
 
 " make resize more friendly
-noremap <silent> <c-Left> :vertical resize -3<cr>
-noremap <silent> <c-Right> :vertical resize +3<cr>
-noremap <silent> <c-Up> :resize +3<cr>
-noremap <silent> <c-Down> :resize -3<cr>
+noremap <silent> <c-Left> <cmd>vertical resize -3<cr>
+noremap <silent> <c-Right> <cmd>vertical resize +3<cr>
+noremap <silent> <c-Up> <cmd>resize +3<cr>
+noremap <silent> <c-Down> <cmd>resize -3<cr>
 
 " open new terminal
-nnoremap <leader>t :split <cr> :term <cr> :startinsert <cr>
+nnoremap <leader>t <cmd>split <cr> <cmd>term <cr> <cmd>startinsert <cr>
 
 " shortcuts for opening and reloading config
-nnoremap <leader>r :source ~/.config/nvim/init.vim<cr>
-nnoremap <leader>k :tabnew ~/.config/nvim/init.vim<cr>
+nnoremap <leader>r <cmd>source ~/.config/nvim/init.vim<cr>
+nnoremap <leader>k <cmd>tabnew ~/.config/nvim/init.vim<cr>
 
 " remove all White Space before save
 function! Trim()
 	keeppatterns %s/\s\+$//e
 endfun
-nnoremap <leader>w :call Trim()<cr>
+nnoremap <leader>w <cmd>call Trim()<cr>
 
 " open url
-nnoremap <silent><leader>u :!xdg-open "<cword>"<cr><cr>
+nnoremap <silent><leader>u <cmd>!xdg-open "<cword>"<cr><cr>
 
 
 """ =====================
@@ -113,19 +113,19 @@ nnoremap <silent><leader>u :!xdg-open "<cword>"<cr><cr>
 """ =====================
 lua require('lspconf')
 "" Mappings
-nnoremap <silent><leader>cr :Telescope lsp_references initial_mode=normal<cr>
-nnoremap <silent><leader>cgd :Telescope lsp_definitions initial_mode=normal<cr>
-nnoremap <silent><leader>cgt :Telescope lsp_type_definitions initial_mode=normal<cr>
-nnoremap <silent><leader>cgi :Telescope lsp_implementations initial_mode=normal<cr>
-nnoremap <silent><leader>csw :Telescope lsp_workspace_symbols initial_mode=normal<cr>
-nnoremap <silent><leader>csd :Telescope lsp_document_symbols initial_mode=normal<cr>
-nnoremap <silent><leader>cdd :Telescope diagnostics initial_mode=normal<cr>
-nnoremap <silent><leader>cdp :lua vim.diagnostic.goto_prev()<cr>
-nnoremap <silent><leader>cdn :lua vim.diagnostic.goto_next()<cr>
-nnoremap <silent><leader>ca :Telescope lsp_code_actions theme=cursor initial_mode=normal<cr>
-nnoremap <silent><F2> :lua require("lsp_ui").rename()<cr>
-nnoremap <silent><leader>ch :lua vim.lsp.buf.hover()<cr>
-nnoremap <silent><leader>cf :lua vim.lsp.buf.formatting()<cr>
+nnoremap <silent><leader>cr <cmd>Telescope lsp_references initial_mode=normal<cr>
+nnoremap <silent><leader>cgd <cmd>Telescope lsp_definitions initial_mode=normal<cr>
+nnoremap <silent><leader>cgt <cmd>Telescope lsp_type_definitions initial_mode=normal<cr>
+nnoremap <silent><leader>cgi <cmd>Telescope lsp_implementations initial_mode=normal<cr>
+nnoremap <silent><leader>csw <cmd>Telescope lsp_workspace_symbols initial_mode=normal<cr>
+nnoremap <silent><leader>csd <cmd>Telescope lsp_document_symbols initial_mode=normal<cr>
+nnoremap <silent><leader>cdd <cmd>Telescope diagnostics initial_mode=normal<cr>
+nnoremap <silent><leader>cdp <cmd>lua vim.diagnostic.goto_prev()<cr>
+nnoremap <silent><leader>cdn <cmd>lua vim.diagnostic.goto_next()<cr>
+nnoremap <silent><leader>ca <cmd>Telescope lsp_code_actions theme=cursor initial_mode=normal<cr>
+nnoremap <silent><F2> <cmd>lua require("lsp_ui").rename()<cr>
+nnoremap <silent><leader>ch <cmd>lua vim.lsp.buf.hover()<cr>
+nnoremap <silent><leader>cf <cmd>lua vim.lsp.buf.formatting()<cr>
 
 
 """ ======================
@@ -182,10 +182,10 @@ require('nvim-tree').setup{
 	},
 }
 EOF
-nnoremap <leader>no :NvimTreeOpen<cr>
-nnoremap <leader>nt :NvimTreeToggle<cr>
-nnoremap <leader>nff :NvimTreeFindFile<cr>
-nnoremap <leader>nf :NvimTreeFocus<cr>
+nnoremap <leader>no <cmd>NvimTreeOpen<cr>
+nnoremap <leader>nt <cmd>NvimTreeToggle<cr>
+nnoremap <leader>nff <cmd>NvimTreeFindFile<cr>
+nnoremap <leader>nf <cmd>NvimTreeFocus<cr>
 
 
 """ =========================
@@ -302,15 +302,15 @@ dap.configurations.cpp = {
 }
 dap.configurations.c = dap.configurations.cpp
 EOF
-nnoremap <silent><F5> :lua require'dap'.continue()<CR>
-nnoremap <silent><F10> :lua require'dap'.step_over()<CR>
-nnoremap <silent><F11> :lua require'dap'.step_into()<CR>
-nnoremap <silent><F12> :lua require'dap'.step_out()<CR>
-nnoremap <silent><leader>b :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent><leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nnoremap <silent><leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-nnoremap <silent><leader>dr :lua require'dap'.repl.open()<CR>
-nnoremap <silent><leader>dl :lua require'dap'.run_last()<CR>
+nnoremap <silent><F5> <cmd>lua require'dap'.continue()<CR>
+nnoremap <silent><F10> <cmd>lua require'dap'.step_over()<CR>
+nnoremap <silent><F11> <cmd>lua require'dap'.step_into()<CR>
+nnoremap <silent><F12> <cmd>lua require'dap'.step_out()<CR>
+nnoremap <silent><leader>b <cmd>lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent><leader>B <cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent><leader>lp <cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent><leader>dr <cmd>lua require'dap'.repl.open()<CR>
+nnoremap <silent><leader>dl <cmd>lua require'dap'.run_last()<CR>
 
 
 """ ==========================
@@ -337,3 +337,27 @@ require('session-lens').setup {
 }
 EOF
 nnoremap <silent><leader>ss <cmd>SearchSession<cr>
+
+
+""" ==========================
+"""   WinShift Configuration
+""" ==========================
+lua << EOF
+require('winshift').setup({
+	highlight_moving_win = true,
+	window_picker_ignore = {
+		filetype = {
+			"NvimTree"
+		},
+	},
+})
+EOF
+nnoremap <silent><leader>wu <cmd>WinShift up<cr>
+nnoremap <silent><leader>wd <cmd>WinShift down<cr>
+nnoremap <silent><leader>wl <cmd>WinShift left<cr>
+nnoremap <silent><leader>wr <cmd>WinShift right<cr>
+nnoremap <silent><leader>wuu <cmd>WinShift far_up<cr>
+nnoremap <silent><leader>wdd <cmd>WinShift far_down<cr>
+nnoremap <silent><leader>wll <cmd>WinShift far_left<cr>
+nnoremap <silent><leader>wrr <cmd>WinShift far_right<cr>
+nnoremap <silent><leader>ws <cmd>WinShift swap<cr>

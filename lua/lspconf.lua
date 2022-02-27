@@ -110,3 +110,15 @@ require('lspconfig').omnisharp.setup({
 	capabilities = capabilities,
 	cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
 })
+
+-- HTML CSS Javascript Language server
+require('lspconfig').cssls.setup({
+	capabilities = capabilities,
+})
+require('lspconfig').html.setup({
+	capabilities = capabilities,
+})
+require('lspconfig').jsonls.setup({
+		capabilities = capabilities,
+})
+require('lspconfig').eslint.setup({})
