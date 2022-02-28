@@ -37,6 +37,9 @@ Plug 'rmagatti/session-lens'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
 
+"" Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
 "" Languages
 Plug 'Shatur/neovim-cmake'
 Plug 'sheerun/vim-polyglot'
@@ -194,6 +197,7 @@ nnoremap <leader>nf <cmd>NvimTreeFocus<cr>
 lua << EOF
 require('tabline').setup({
 	always_show_tabs = true,
+	separator = "",
 })
 EOF
 
@@ -220,8 +224,8 @@ require('lualine').setup {
 		lualine_z = { 'os.date("%H:%M")' }
 	},
 	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {'filename'},
+		lualine_a = {'filename'},
+		lualine_b = {},
 		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {},
@@ -293,7 +297,7 @@ dap.configurations.cpp = {
     	type = "lldb",
     	request = "launch",
     	program = function()
-			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
     	end,
     	cwd = '${workspaceFolder}',
     	stopOnEntry = false,
