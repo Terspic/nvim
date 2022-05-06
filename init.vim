@@ -6,11 +6,11 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'neovim/nvim-lspconfig'
 " completions plugins
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'
 " snippets
 Plug 'hrsh7th/cmp-vsnip'
@@ -20,7 +20,6 @@ Plug 'mfussenegger/nvim-dap'
 
 "" UI Plugins
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'arkav/lualine-lsp-progress'
 Plug 'seblj/nvim-tabline'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
@@ -32,10 +31,14 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'sindrets/winshift.nvim'
 Plug 'rmagatti/auto-session'
 Plug 'rmagatti/session-lens'
+Plug 'folke/trouble.nvim'
+Plug 'akinsho/toggleterm.nvim'
+Plug 'goolord/alpha-nvim'
 
 "" Git
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
+Plug 'sindrets/diffview.nvim'
 
 "" Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -48,6 +51,7 @@ Plug 'DingDean/wgsl.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'saecki/crates.nvim'
 Plug 'fladson/vim-kitty'
+Plug 'beyondmarc/hlsl.vim'
 
 "" Themes and icons
 Plug 'arcticicestudio/nord-vim'
@@ -77,15 +81,16 @@ set updatetime=100
 set encoding=utf-8
 set splitbelow splitright
 set nobackup nowritebackup
-let mapleader = "ù"
-
+set noswapfile
+nnoremap <space> <Nop>
+let mapleader = " "
 
 """ ======================
 """   Nord Configuration
 """ ======================
-let g:nord_italic = 1
-let g:nord_underline = 1
-let g:nord_italic_comment = 1
+"let g:nord_italic = 1
+"let g:nord_underline = 1
+"let g:nord_italic_comment = 1
 colorscheme nord
 
 " make resize more friendly
@@ -94,12 +99,12 @@ noremap <silent> <c-Right> <cmd>vertical resize +3<cr>
 noremap <silent> <c-Up> <cmd>resize +3<cr>
 noremap <silent> <c-Down> <cmd>resize -3<cr>
 
+
 " open new terminal
-nnoremap <leader>t <cmd>split <cr> <cmd>term <cr> <cmd>startinsert <cr>
+nnoremap <leader>t :ToggleTerm<cr>
 
 " shortcuts for opening and reloading config
 nnoremap <leader>r <cmd>source ~/.config/nvim/init.vim<cr>
-nnoremap <leader>k <cmd>tabnew ~/.config/nvim/init.vim<cr>
 
 " remove all White Space before save
 function! Trim()
@@ -164,22 +169,25 @@ let g:nvim_tree_icons = {
 lua << EOF
 require('nvim-tree').setup{
 	disable_netrw = true,
-	hijack_unnamed_buffer_when_opening = false,
-	auto_close = true,
 	update_cwd = true,
+	auto_reload_on_write = true,
+	actions = {
+		open_file = {
+			resize_window = true,
+		},
+	},
 	git = {
 		enable = true,
 		ignore = false,
 	},
 	filters = {
-		dotfiles = true,
-		custom = { ".git" },
+		dotfiles = false,
+		custom = { '.git' },
 	},
 	view = {
-		auto_resize = true,
 		mappings = {
 			list = {
-				{ key = "t", action = "tabnew" },
+				{ key = 't', action = 'tabnew' },
 			}
 		}
 	},
@@ -197,6 +205,7 @@ nnoremap <leader>nf <cmd>NvimTreeFocus<cr>
 lua << EOF
 require('tabline').setup({
 	always_show_tabs = true,
+	close_icon = "",
 	separator = "",
 })
 EOF
@@ -218,9 +227,9 @@ require('lualine').setup {
 	sections = {
 		lualine_a = { 'mode' },
 		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { 'filename', 'lsp_progress' },
+		lualine_c = { 'filename' },
 		lualine_x = {},
-		lualine_y = { 'filetype', 'encoding', 'progress', 'location',},
+		lualine_y = { 'filetype', 'encoding', 'location',},
 		lualine_z = { 'os.date("%H:%M")' }
 	},
 	inactive_sections = {
@@ -232,9 +241,15 @@ require('lualine').setup {
 		lualine_z = {}
 	},
 	tabline = {},
-	extensions = { 'fugitive' }
+	extensions = { 'fugitive', 'toggleterm', 'quickfix' }
 }
 EOF
+
+
+""" ============================
+"""   IndentLine configuration
+""" ============================
+let g:indent_blankline_filetype_exclude = ['alpha', 'toggleterm']
 
 
 """ ===========================
@@ -254,12 +269,12 @@ require('telescope').setup({
 	defaults = {
 		mappings = {
 			n = {
-				["t"] = require("telescope.actions").select_tab,
+				['t'] = require('telescope.actions').select_tab,
 			},
 		},
 	},
 })
-require('telescope').load_extension("ui-select")
+require('telescope').load_extension('ui-select')
 require('telescope').load_extension('dap')
 require('telescope').load_extension('session-lens')
 EOF
@@ -267,6 +282,8 @@ nnoremap <silent><leader>ff <cmd>Telescope find_files<cr>
 nnoremap <silent><leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <silent><leader>fb <cmd>Telescope buffers<cr>
 nnoremap <silent><leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <silent><leader>fd <cmd>Telescope builtin<cr>
+
 
 """ =====================
 """   Dap Configuration
@@ -274,15 +291,15 @@ nnoremap <silent><leader>fh <cmd>Telescope help_tags<cr>
 lua << EOF
 local dap = require('dap')
 dap.adapters.lldb = {
-	type = "executable",
-	command = "lldb-vscode",
-	name ="lldb",
+	type = 'executable',
+	command = 'lldb-vscode',
+	name ='lldb',
 }
 dap.configurations.rust = {
 	{
-		name = "Launch",
-    	type = "lldb",
-    	request = "launch",
+		name = 'Launch',
+    	type = 'lldb',
+    	request = 'launch',
     	program = function()
 			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
     	end,
@@ -293,9 +310,9 @@ dap.configurations.rust = {
 }
 dap.configurations.cpp = {
 	{
-		name = "Launch",
-    	type = "lldb",
-    	request = "launch",
+		name = 'Launch',
+    	type = 'lldb',
+    	request = 'launch',
     	program = function()
 			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
     	end,
@@ -329,15 +346,16 @@ EOF
 """   Auto-session Configuration
 """ ==============================
 lua << EOF
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+vim.o.sessionoptions='blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
 
 require('auto-session').setup({
 	log_level = 'info',
 	auto_session_suppress_dirs = { '~/' },
+	pre_save_cmds = { 'tabdo NvimTreeClose', 'tabfirst', 'ToggleTermToggleAll' },
 })
 require('session-lens').setup {
 	previewer = false,
-	prompt_title = 'SESSIONS'
+	prompt_title = 'Sessions'
 }
 EOF
 nnoremap <silent><leader>ss <cmd>SearchSession<cr>
@@ -351,7 +369,7 @@ require('winshift').setup({
 	highlight_moving_win = true,
 	window_picker_ignore = {
 		filetype = {
-			"NvimTree"
+			'NvimTree'
 		},
 	},
 })
@@ -360,8 +378,67 @@ nnoremap <silent><leader>wu <cmd>WinShift up<cr>
 nnoremap <silent><leader>wd <cmd>WinShift down<cr>
 nnoremap <silent><leader>wl <cmd>WinShift left<cr>
 nnoremap <silent><leader>wr <cmd>WinShift right<cr>
-nnoremap <silent><leader>wuu <cmd>WinShift far_up<cr>
-nnoremap <silent><leader>wdd <cmd>WinShift far_down<cr>
-nnoremap <silent><leader>wll <cmd>WinShift far_left<cr>
-nnoremap <silent><leader>wrr <cmd>WinShift far_right<cr>
 nnoremap <silent><leader>ws <cmd>WinShift swap<cr>
+
+
+""" ==========================
+"""   Trouble Configuration 
+""" ==========================
+lua << EOF
+require('trouble').setup({
+
+})
+EOF
+nnoremap <silent><leader>xx <cmd>TroubleToggle<cr>
+nnoremap <silent><leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <silent><leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <silent><leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <silent><leader>xl <cmd>TroubleToggle loclist<cr>
+
+
+""" ============================
+"""   ToggleTerm Configuration
+""" ============================
+lua << EOF
+require('toggleterm').setup({
+	shading_factor = 0.5,
+})
+
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+end
+
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+EOF
+
+
+""" ==========================
+"""   DiffView Configuration 
+""" ==========================
+lua << EOF
+require('diffview').setup({
+	enhanced_diff_hl = false,
+	use_icons = true,
+})
+EOF
+nnoremap <silent><leader>dd :DiffviewOpen<cr>
+nnoremap <silent><leader>dc :DiffviewClose<cr>
+nnoremap <silent><leader>df :DiffviewFileHistory<cr>
+nnoremap <silent><leader>dr :DiffviewRefresh<cr>
+
+
+""" =======================
+"""	  Alpha Configuration
+""" =======================
+lua << EOF
+require('alpha').setup(require('alpha.themes.theta').config)
+EOF
+
+
+""" =================================
+"""   MarkdownPreview Configuration
+""" =================================
+nnoremap <silent><leader>mp :MarkdownPreview<cr>
+nnoremap <silent><leader>mt :MarkdownPreviewToggle<cr>
+nnoremap <silent><leader>ms :MarkdownPreviewStop<cr>

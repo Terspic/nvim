@@ -1,5 +1,5 @@
 -- Setup nvim-cmp.
-local cmp = require'cmp'
+local cmp = require 'cmp'
 local lspkind = require('lspkind')
 
 cmp.setup({
@@ -7,25 +7,24 @@ cmp.setup({
 		expand = function(args)
 			vim.fn["vsnip#anonymous"](args.body)
 		end,
-    },
-    mapping = {
+	},
+	mapping = {
 		['<C-Space>'] = cmp.mapping(cmp.mapping.complete()),
 		['<CR>'] = cmp.mapping.confirm({ select = true }),
 		['<Tab>'] = cmp.mapping.select_next_item(),
 		['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    },
-    sources = cmp.config.sources({
+	},
+	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'vsnip' },
 		{ name = 'buffer' },
 		{ name = 'crates' },
-    }),
+	}),
 	-- display icons in completion popup
 	formatting = {
-		format =
-			lspkind.cmp_format({
-				mode ='symbol_text',
-				maxwidth = 50,
+		format = lspkind.cmp_format({
+			mode = 'symbol_text',
+			maxwidth = 50,
 		})
 	}
 })
@@ -48,32 +47,43 @@ cmp.setup.cmdline(':', {
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local lsp_config = require('lspconfig')
 
 -- rust analyser
-require('lspconfig').rust_analyzer.setup({
-    capabilities = capabilities,
-	cargo = {
-		allFeatures = true,
+lsp_config.rust_analyzer.setup({
+	capabilities = capabilities,
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+			checkOnSave = {
+				allFeatures = true,
+			},
+			procMarco = {
+				enable = true,
+			}
+		},
 	},
 })
 
 -- Python Jedi
-require('lspconfig').jedi_language_server.setup({
+lsp_config.jedi_language_server.setup({
 	capabilities = capabilities,
 })
 
 -- Clangd
-require('lspconfig').clangd.setup({
+lsp_config.clangd.setup({
 	capabilities = capabilities,
 })
 
 -- Vim Language server
-require('lspconfig').vimls.setup({
+lsp_config.vimls.setup({
 	capabilities = capabilities,
 })
 
 -- CMake Language server
-require('lspconfig').cmake.setup({
+lsp_config.cmake.setup({
 	capabilities = capabilities,
 })
 
@@ -82,7 +92,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require'lspconfig'.sumneko_lua.setup {
+lsp_config.sumneko_lua.setup {
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -106,19 +116,21 @@ require'lspconfig'.sumneko_lua.setup {
 -- OmniSharp Language server
 local pid = vim.fn.getpid()
 local omnisharp_bin = '/usr/bin/omnisharp'
-require('lspconfig').omnisharp.setup({
+lsp_config.omnisharp.setup({
 	capabilities = capabilities,
 	cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
 })
 
 -- HTML CSS Javascript Language server
-require('lspconfig').cssls.setup({
+lsp_config.cssls.setup({
 	capabilities = capabilities,
 })
-require('lspconfig').html.setup({
+lsp_config.html.setup({
 	capabilities = capabilities,
 })
-require('lspconfig').jsonls.setup({
-		capabilities = capabilities,
+lsp_config.jsonls.setup({
+	capabilities = capabilities,
 })
-require('lspconfig').eslint.setup({})
+lsp_config.eslint.setup({
+	capabilities = capabilities,
+})
