@@ -171,6 +171,7 @@ require('nvim-tree').setup{
 	disable_netrw = true,
 	update_cwd = true,
 	auto_reload_on_write = true,
+	open_on_tab = true,
 	actions = {
 		open_file = {
 			resize_window = true,
@@ -439,6 +440,17 @@ EOF
 """ =================================
 """   MarkdownPreview Configuration
 """ =================================
-nnoremap <silent><leader>mp :MarkdownPreview<cr>
-nnoremap <silent><leader>mt :MarkdownPreviewToggle<cr>
-nnoremap <silent><leader>ms :MarkdownPreviewStop<cr>
+nnoremap <silent><leader>pp :MarkdownPreview<cr>
+nnoremap <silent><leader>pt :MarkdownPreviewToggle<cr>
+nnoremap <silent><leader>ps :MarkdownPreviewStop<cr>
+
+
+""" =======================
+"""   CMake configuration 
+""" =======================
+nnoremap <silent><leader>mc :CMake configure 
+nnoremap <silent><leader>mr :CMake run 
+nnoremap <silent><leader>mb :CMake build 
+nnoremap <silent><leader>ms :CMake select_target
+nnoremap <silent><leader>mcc :CMake clean
+
