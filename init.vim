@@ -448,9 +448,9 @@ nnoremap <silent><leader>ps :MarkdownPreviewStop<cr>
 """ =======================
 """   CMake configuration 
 """ =======================
-nnoremap <silent><leader>mc :CMake configure 
-nnoremap <silent><leader>mr :CMake run 
-nnoremap <silent><leader>mb :CMake build 
-nnoremap <silent><leader>ms :CMake select_target
-nnoremap <silent><leader>mcc :CMake clean
+nnoremap <silent><leader>mc :CMake configure<cr> 
+nnoremap <silent><leader>mr :CMake run <cr>
+nnoremap <silent><leader>mb :CMake build <cr>
+nnoremap <silent><leader>ms :CMake select_target<cr>
+nnoremap <silent><leader>mcc :CMake clean<cr>
 
