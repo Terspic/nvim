@@ -17,6 +17,7 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 " Debug
 Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 
 "" UI Plugins
 Plug 'nvim-lualine/lualine.nvim'
@@ -114,6 +115,10 @@ nnoremap <leader>w <cmd>call Trim()<cr>
 
 " open url
 nnoremap <silent><leader>u <cmd>!xdg-open "<cword>"<cr><cr>
+
+" toggle quickfix list 
+nnoremap <silent><leader>qo <cmd>bo copen<cr>
+nnoremap <silent><leader>qq <cmd>cclose<cr>
 
 
 """ =====================
@@ -323,14 +328,36 @@ dap.configurations.cpp = {
 	}
 }
 dap.configurations.c = dap.configurations.cpp
+
+local dapui = require('dapui')
+dapui.setup({
+	sidebar = {
+		elements = {
+			{ id = "scopes", size = 0.5 },
+			{ id = "berakpoints", size = 0.25 },
+			{ id = "watches", size = 0.25 },
+		},
+	},
+})
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	vim.cmd("NvimTreeClose")
+	dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+	dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+	dapui.close()
+end
+
 EOF
 nnoremap <silent><F5> <cmd>lua require'dap'.continue()<CR>
 nnoremap <silent><F10> <cmd>lua require'dap'.step_over()<CR>
 nnoremap <silent><F11> <cmd>lua require'dap'.step_into()<CR>
 nnoremap <silent><F12> <cmd>lua require'dap'.step_out()<CR>
-nnoremap <silent><leader>b <cmd>lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent><leader>B <cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nnoremap <silent><leader>lp <cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent><leader>db <cmd>lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent><leader>dB <cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent><leader>dp <cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent><leader>dr <cmd>lua require'dap'.repl.open()<CR>
 nnoremap <silent><leader>dl <cmd>lua require'dap'.run_last()<CR>
 
