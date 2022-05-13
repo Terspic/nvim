@@ -4,6 +4,7 @@
 call plug#begin()
 "" LSP Plugins
 Plug 'nvim-lua/plenary.nvim'
+Plug 'tami5/sqlite.lua'
 Plug 'neovim/nvim-lspconfig'
 " completions plugins
 Plug 'hrsh7th/nvim-cmp'
@@ -26,6 +27,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'tmsvg/pear-tree'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -211,8 +213,8 @@ nnoremap <leader>nf <cmd>NvimTreeFocus<cr>
 lua << EOF
 require('tabline').setup({
 	always_show_tabs = true,
-	close_icon = "",
-	separator = "",
+	close_icon = '',
+	separator = '',
 })
 EOF
 
@@ -271,7 +273,8 @@ let g:pear_tree_smart_backspaces = 1
 """   Telescope Configuration
 """ ===========================
 lua << EOF
-require('telescope').setup({
+local telescope = require('telescope')
+telescope.setup({
 	defaults = {
 		mappings = {
 			n = {
@@ -281,14 +284,15 @@ require('telescope').setup({
 	},
 
 	extensions = {
-		["ui-select"] = {
-			require("telescope.themes").get_dropdown({})
+		['ui-select'] = {
+			require('telescope.themes').get_dropdown({})
 		},
 	},
 })
-require('telescope').load_extension('ui-select')
-require('telescope').load_extension('dap')
-require('telescope').load_extension('session-lens')
+telescope.load_extension('ui-select')
+telescope.load_extension('dap')
+telescope.load_extension('session-lens')
+telescope.load_extension('frecency')
 EOF
 nnoremap <silent><leader>ff <cmd>Telescope find_files<cr>
 nnoremap <silent><leader>fg <cmd>Telescope live_grep<cr>
@@ -339,20 +343,20 @@ local dapui = require('dapui')
 dapui.setup({
 	sidebar = {
 		elements = {
-			{ id = "scopes", size = 0.5 },
-			{ id = "berakpoints", size = 0.25 },
-			{ id = "watches", size = 0.25 },
+			{ id = 'scopes', size = 0.5 },
+			{ id = 'breakpoints', size = 0.25 },
+			{ id = 'watches', size = 0.25 },
 		},
 	},
 })
-dap.listeners.after.event_initialized["dapui_config"] = function()
-	vim.cmd("NvimTreeClose")
+dap.listeners.after.event_initialized['dapui_config'] = function()
+	vim.cmd('NvimTreeClose')
 	dapui.open()
 end
-dap.listeners.before.event_terminated["dapui_config"] = function()
+dap.listeners.before.event_terminated['dapui_config'] = function()
 	dapui.close()
 end
-dap.listeners.before.event_exited["dapui_config"] = function()
+dap.listeners.before.event_exited['dapui_config'] = function()
 	dapui.close()
 end
 
