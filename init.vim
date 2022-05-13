@@ -135,7 +135,7 @@ nnoremap <silent><leader>csd <cmd>Telescope lsp_document_symbols initial_mode=no
 nnoremap <silent><leader>cdd <cmd>Telescope diagnostics initial_mode=normal<cr>
 nnoremap <silent><leader>cdp <cmd>lua vim.diagnostic.goto_prev()<cr>
 nnoremap <silent><leader>cdn <cmd>lua vim.diagnostic.goto_next()<cr>
-nnoremap <silent><leader>ca <cmd>Telescope lsp_code_actions theme=cursor initial_mode=normal<cr>
+nnoremap <silent><leader>ca <cmd>lua vim.lsp.buf.code_action()<cr>
 nnoremap <silent><F2> <cmd>lua require("lsp_ui").rename()<cr>
 nnoremap <silent><leader>ch <cmd>lua vim.lsp.buf.hover()<cr>
 nnoremap <silent><leader>cf <cmd>lua vim.lsp.buf.formatting()<cr>
@@ -277,6 +277,12 @@ require('telescope').setup({
 			n = {
 				['t'] = require('telescope.actions').select_tab,
 			},
+		},
+	},
+
+	extensions = {
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown({})
 		},
 	},
 })
