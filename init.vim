@@ -245,7 +245,7 @@ require('lualine').setup {
 		lualine_b = {},
 		lualine_c = {},
 		lualine_x = {},
-		lualine_y = {},
+		lualine_y = { 'filetype', 'encoding', 'location',},
 		lualine_z = {}
 	},
 	tabline = {},
@@ -306,38 +306,51 @@ nnoremap <silent><leader>fd <cmd>Telescope builtin<cr>
 """ =====================
 lua << EOF
 local dap = require('dap')
+local Path = require("plenary.path")
+
 dap.adapters.lldb = {
 	type = 'executable',
 	command = 'lldb-vscode',
 	name ='lldb',
 }
-dap.configurations.rust = {
-	{
-		name = 'Launch',
-    	type = 'lldb',
-    	request = 'launch',
-    	program = function()
-			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
-    	end,
-    	cwd = '${workspaceFolder}',
-    	stopOnEntry = false,
-    	args = {},
+
+if Path:new(".vscode/launch.json"):exists() then
+	require('dap.ext.vscode').load_launchjs(nil, { lldb = {'rust'} })
+else 
+	dap.configurations.rust = {
+		{
+			name = 'Launch',
+	    	type = 'lldb',
+	    	request = 'launch',
+	    	program = function()
+				return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+	    	end,
+	    	cwd = '${workspaceFolder}',
+	    	stopOnEntry = false,
+	    	args = {},
+		}
 	}
-}
-dap.configurations.cpp = {
-	{
-		name = 'Launch',
-    	type = 'lldb',
-    	request = 'launch',
-    	program = function()
-			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
-    	end,
-    	cwd = '${workspaceFolder}',
-    	stopOnEntry = false,
-    	args = {},
+end 
+
+if Path:new(".vscode/launch.json"):exists() then
+	require('dap.ext.vscode').load_launchjs(nil, { lldb = {'cpp'} })
+else 
+	dap.configurations.cpp = {
+		{
+			name = 'Launch',
+	    	type = 'lldb',
+	    	request = 'launch',
+	    	program = function()
+				return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
+	    	end,
+	    	cwd = '${workspaceFolder}',
+	    	stopOnEntry = false,
+	    	args = {},
+		}
 	}
-}
+end
 dap.configurations.c = dap.configurations.cpp
+
 
 local dapui = require('dapui')
 dapui.setup({
@@ -489,5 +502,6 @@ nnoremap <silent><leader>mc :CMake configure<cr>
 nnoremap <silent><leader>mr :CMake run <cr>
 nnoremap <silent><leader>mb :CMake build <cr>
 nnoremap <silent><leader>ms :CMake select_target<cr>
+nnoremap <silent><leader>mt :CMake select_build_type<cr>
 nnoremap <silent><leader>mcc :CMake clean<cr>
 
