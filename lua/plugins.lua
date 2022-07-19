@@ -1,6 +1,6 @@
 vim.cmd [[packadd packer.nvim]]
 
-require("packer").startup(function()
+require("packer").startup({function()
 	use 'wbthomason/packer.nvim'
 	use 'nvim-lua/plenary.nvim'
 	use 'MunifTanjim/nui.nvim'
@@ -20,6 +20,8 @@ require("packer").startup(function()
 
 	-- Themes
 	use 'Terspic/nord.nvim'
+	use 'folke/tokyonight.nvim'
+	use 'rmehri01/onenord.nvim'
 
 	-- LSP plugins
 	use 'neovim/nvim-lspconfig'
@@ -124,5 +126,12 @@ require("packer").startup(function()
 		'folke/which-key.nvim',
 		config = function() require('plugins.which-key') end,
 	}
-
-end)
+	end,
+	config = {
+		display = {
+			open_fn = function()
+				return require('packer.util').float({border = 'single'})
+			end
+		}
+	}
+})

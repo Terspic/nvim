@@ -1,7 +1,4 @@
-require('toggleterm').setup({
-	shade_terminals = true,
-	shading_factor = '1',
-})
+require('toggleterm').setup({})
 
 function _G.set_terminal_keymaps()
   local opts = {noremap = true}
