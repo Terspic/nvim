@@ -11,8 +11,11 @@ wk.register({
 
 
 	['<leader>'] = {
-		t = { '<cmd>ToggleTerm direction=horizontal<cr>', 'toggle terminal' },
-		r = { 'source ~/.config/nvim/init.lua<cr>', 'reload config' },
+		o = {
+			name = "+others",
+			t = { '<cmd>ToggleTerm direction=horizontal<cr>', 'toggle terminal' },
+			r = { 'source ~/.config/nvim/init.lua<cr>', 'reload config' },
+		},
 		q = {
 			name = 'quickfix',
 			o = { '<cmd>bo copen<cr>', 'open' },
