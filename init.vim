@@ -1,66 +1,6 @@
-""" ===========
-"""   Plugins
-""" ===========
-call plug#begin()
-"" LSP Plugins
-Plug 'nvim-lua/plenary.nvim'
-Plug 'tami5/sqlite.lua'
-Plug 'neovim/nvim-lspconfig'
-" completions plugins
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'onsails/lspkind-nvim'
-" snippets
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-" Debug
-Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
-
-"" UI Plugins
-Plug 'nvim-lualine/lualine.nvim'
-Plug 'seblj/nvim-tabline'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-ui-select.nvim'
-Plug 'nvim-telescope/telescope-dap.nvim'
-Plug 'nvim-telescope/telescope-frecency.nvim'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'tmsvg/pear-tree'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'sindrets/winshift.nvim'
-Plug 'rmagatti/auto-session'
-Plug 'rmagatti/session-lens'
-Plug 'folke/trouble.nvim'
-Plug 'akinsho/toggleterm.nvim'
-Plug 'goolord/alpha-nvim'
-
-"" Git
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tpope/vim-fugitive'
-Plug 'sindrets/diffview.nvim'
-
-"" Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-
-"" Languages
-Plug 'Shatur/neovim-cmake'
-Plug 'sheerun/vim-polyglot'
-Plug 'tikhomirov/vim-glsl'
-Plug 'DingDean/wgsl.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'saecki/crates.nvim'
-Plug 'fladson/vim-kitty'
-Plug 'beyondmarc/hlsl.vim'
-
-"" Themes and icons
-Plug 'arcticicestudio/nord-vim'
-Plug 'kyazdani42/nvim-web-devicons'
-call plug#end()
-
+lua << EOF
+require("plugins")
+EOF
 
 """ =========================
 """   General Configuration
@@ -91,9 +31,8 @@ let mapleader = " "
 """ ======================
 """   Nord Configuration
 """ ======================
-"let g:nord_italic = 1
-"let g:nord_underline = 1
-"let g:nord_italic_comment = 1
+let g:nord_italic = v:true
+let g:nord_borders = v:true
 colorscheme nord
 
 " make resize more friendly
@@ -104,14 +43,14 @@ noremap <silent> <c-Down> <cmd>resize -3<cr>
 
 
 " open new terminal
-nnoremap <leader>t :ToggleTerm<cr>
+nnoremap <leader>t :ToggleTerm direction=horizontal<cr>
 
 " shortcuts for opening and reloading config
 nnoremap <leader>r <cmd>source ~/.config/nvim/init.vim<cr>
 
 " remove all White Space before save
 function! Trim()
-	keeppatterns %s/\s\+$//e
+keeppatterns %s/\s\+$//e
 endfun
 nnoremap <leader>w <cmd>call Trim()<cr>
 
@@ -147,111 +86,16 @@ nnoremap <silent><leader>cf <cmd>lua vim.lsp.buf.formatting()<cr>
 """   Rust configuration
 """ ======================
 let g:rustfmt_autosave = 1
-" crate setup
-lua require('crates').setup()
 
 
 """ ==========================
 """   NvimTree Configuration
 """ ==========================
-let g:nvim_tree_git_hl = 0
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 1,
-    \ 'folder_arrows': 1,
-    \ }
-let g:nvim_tree_special_files = {}
-let g:nvim_tree_icons = {
-    \ 'git': {
-    \   'unstaged': "",
-    \   'staged': "",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "",
-    \   'deleted': "",
-    \   'ignored': "◌"
-    \   },
-   \ }
-lua << EOF
-require('nvim-tree').setup{
-	disable_netrw = true,
-	update_cwd = true,
-	auto_reload_on_write = true,
-	open_on_tab = true,
-	actions = {
-		open_file = {
-			resize_window = true,
-		},
-	},
-	git = {
-		enable = true,
-		ignore = false,
-	},
-	filters = {
-		dotfiles = false,
-		custom = { '.git' },
-	},
-	view = {
-		mappings = {
-			list = {
-				{ key = 't', action = 'tabnew' },
-			}
-		}
-	},
-}
-EOF
-nnoremap <leader>no <cmd>NvimTreeOpen<cr>
-nnoremap <leader>nt <cmd>NvimTreeToggle<cr>
-nnoremap <leader>nff <cmd>NvimTreeFindFile<cr>
-nnoremap <leader>nf <cmd>NvimTreeFocus<cr>
-
-
-""" =========================
-"""   Tabline Configuration
-""" =========================
-lua << EOF
-require('tabline').setup({
-	always_show_tabs = true,
-	close_icon = '',
-	separator = '',
-})
-EOF
-
-
-""" =========================
-"""   LuaLine Configuration
-""" =========================
-lua << EOF
-require('lualine').setup {
-	options = {
-		icons_enabled = true,
-		theme = 'auto',
-		component_separators = { left = '', right = '' },
-		section_separators = { left = '', right = '' },
-		disabled_filetypes = { 'NvimTree' },
-		always_divide_middle = true,
-	},
-	sections = {
-		lualine_a = { 'mode' },
-		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { 'filename' },
-		lualine_x = {},
-		lualine_y = { 'filetype', 'encoding', 'location',},
-		lualine_z = { 'os.date("%H:%M")' }
-	},
-	inactive_sections = {
-		lualine_a = {'filename'},
-		lualine_b = {},
-		lualine_c = {},
-		lualine_x = {},
-		lualine_y = { 'filetype', 'encoding', 'location',},
-		lualine_z = {}
-	},
-	tabline = {},
-	extensions = { 'fugitive', 'toggleterm', 'quickfix' }
-}
-EOF
+nnoremap <silent><leader>no <cmd>NvimTreeOpen<cr>
+nnoremap <silent><leader>nc <cmd>NvimTreeClose<cr>
+nnoremap <silent><leader>nt <cmd>NvimTreeToggle<cr>
+nnoremap <silent><leader>nff <cmd>NvimTreeFindFile<cr>
+nnoremap <silent><leader>nf <cmd>NvimTreeFocus<cr>
 
 
 """ ============================
@@ -261,39 +105,8 @@ let g:indent_blankline_filetype_exclude = ['alpha', 'toggleterm']
 
 
 """ ===========================
-"""   Pear Tree Configuration
-""" ===========================
-let g:pear_tree_repeatable_expand = 0
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspaces = 1
-
-
-""" ===========================
 """   Telescope Configuration
 """ ===========================
-lua << EOF
-local telescope = require('telescope')
-telescope.setup({
-	defaults = {
-		mappings = {
-			n = {
-				['t'] = require('telescope.actions').select_tab,
-			},
-		},
-	},
-
-	extensions = {
-		['ui-select'] = {
-			require('telescope.themes').get_dropdown({})
-		},
-	},
-})
-telescope.load_extension('ui-select')
-telescope.load_extension('dap')
-telescope.load_extension('session-lens')
-telescope.load_extension('frecency')
-EOF
 nnoremap <silent><leader>ff <cmd>Telescope find_files<cr>
 nnoremap <silent><leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <silent><leader>fb <cmd>Telescope buffers<cr>
@@ -304,127 +117,26 @@ nnoremap <silent><leader>fd <cmd>Telescope builtin<cr>
 """ =====================
 """   Dap Configuration
 """ =====================
-lua << EOF
-local dap = require('dap')
-local Path = require("plenary.path")
-
-dap.adapters.lldb = {
-	type = 'executable',
-	command = 'lldb-vscode',
-	name ='lldb',
-}
-
-if Path:new(".vscode/launch.json"):exists() then
-	require('dap.ext.vscode').load_launchjs(nil, { lldb = {'rust'} })
-else 
-	dap.configurations.rust = {
-		{
-			name = 'Launch',
-	    	type = 'lldb',
-	    	request = 'launch',
-	    	program = function()
-				return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
-	    	end,
-	    	cwd = '${workspaceFolder}',
-	    	stopOnEntry = false,
-	    	args = {},
-		}
-	}
-end 
-
-if Path:new(".vscode/launch.json"):exists() then
-	require('dap.ext.vscode').load_launchjs(nil, { lldb = {'cpp'} })
-else 
-	dap.configurations.cpp = {
-		{
-			name = 'Launch',
-	    	type = 'lldb',
-	    	request = 'launch',
-	    	program = function()
-				return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/', 'file')
-	    	end,
-	    	cwd = '${workspaceFolder}',
-	    	stopOnEntry = false,
-	    	args = {},
-		}
-	}
-end
-dap.configurations.c = dap.configurations.cpp
-
-
-local dapui = require('dapui')
-dapui.setup({
-	sidebar = {
-		elements = {
-			{ id = 'scopes', size = 0.5 },
-			{ id = 'breakpoints', size = 0.25 },
-			{ id = 'watches', size = 0.25 },
-		},
-	},
-})
-dap.listeners.after.event_initialized['dapui_config'] = function()
-	vim.cmd('NvimTreeClose')
-	dapui.open()
-end
-dap.listeners.before.event_terminated['dapui_config'] = function()
-	dapui.close()
-end
-dap.listeners.before.event_exited['dapui_config'] = function()
-	dapui.close()
-end
-
-EOF
-nnoremap <silent><F5> <cmd>lua require'dap'.continue()<CR>
-nnoremap <silent><F10> <cmd>lua require'dap'.step_over()<CR>
-nnoremap <silent><F11> <cmd>lua require'dap'.step_into()<CR>
-nnoremap <silent><F12> <cmd>lua require'dap'.step_out()<CR>
-nnoremap <silent><leader>db <cmd>lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent><leader>dB <cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nnoremap <silent><leader>dp <cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-nnoremap <silent><leader>dr <cmd>lua require'dap'.repl.open()<CR>
-nnoremap <silent><leader>dl <cmd>lua require'dap'.run_last()<CR>
-
-
-""" ==========================
-"""   GitSigns Configuration
-""" ==========================
-lua << EOF
-require('gitsigns').setup({})
-EOF
+nnoremap <silent><F5> <cmd>lua require'dap'.continue()<cr>
+nnoremap <silent><F10> <cmd>lua require'dap'.step_over()<cr>
+nnoremap <silent><F11> <cmd>lua require'dap'.step_into()<cr>
+nnoremap <silent><F12> <cmd>lua require'dap'.step_out()<cr>
+nnoremap <silent><leader>db <cmd>lua require'dap'.toggle_breakpoint()<cr>
+nnoremap <silent><leader>dB <cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>
+nnoremap <silent><leader>dp <cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>
+nnoremap <silent><leader>dr <cmd>lua require'dap'.repl.open()<cr>
+nnoremap <silent><leader>dl <cmd>lua require'dap'.run_last()<cr>
 
 
 """ ==============================
 """   Auto-session Configuration
 """ ==============================
-lua << EOF
-vim.o.sessionoptions='blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
-
-require('auto-session').setup({
-	log_level = 'info',
-	auto_session_suppress_dirs = { '~/' },
-	pre_save_cmds = { 'tabdo NvimTreeClose', 'tabfirst', 'ToggleTermToggleAll' },
-})
-require('session-lens').setup {
-	previewer = false,
-	prompt_title = 'Sessions'
-}
-EOF
 nnoremap <silent><leader>ss <cmd>SearchSession<cr>
 
 
 """ ==========================
 """   WinShift Configuration
 """ ==========================
-lua << EOF
-require('winshift').setup({
-	highlight_moving_win = true,
-	window_picker_ignore = {
-		filetype = {
-			'NvimTree'
-		},
-	},
-})
-EOF
 nnoremap <silent><leader>wu <cmd>WinShift up<cr>
 nnoremap <silent><leader>wd <cmd>WinShift down<cr>
 nnoremap <silent><leader>wl <cmd>WinShift left<cr>
@@ -435,11 +147,6 @@ nnoremap <silent><leader>ws <cmd>WinShift swap<cr>
 """ ==========================
 """   Trouble Configuration 
 """ ==========================
-lua << EOF
-require('trouble').setup({
-
-})
-EOF
 nnoremap <silent><leader>xx <cmd>TroubleToggle<cr>
 nnoremap <silent><leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
 nnoremap <silent><leader>xd <cmd>TroubleToggle document_diagnostics<cr>
@@ -447,44 +154,13 @@ nnoremap <silent><leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <silent><leader>xl <cmd>TroubleToggle loclist<cr>
 
 
-""" ============================
-"""   ToggleTerm Configuration
-""" ============================
-lua << EOF
-require('toggleterm').setup({
-	shading_factor = 0.5,
-})
-
-function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-end
-
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-EOF
-
-
 """ ==========================
 """   DiffView Configuration 
 """ ==========================
-lua << EOF
-require('diffview').setup({
-	enhanced_diff_hl = false,
-	use_icons = true,
-})
-EOF
 nnoremap <silent><leader>dd :DiffviewOpen<cr>
 nnoremap <silent><leader>dc :DiffviewClose<cr>
 nnoremap <silent><leader>df :DiffviewFileHistory<cr>
 nnoremap <silent><leader>dr :DiffviewRefresh<cr>
-
-
-""" =======================
-"""	  Alpha Configuration
-""" =======================
-lua << EOF
-require('alpha').setup(require('alpha.themes.theta').config)
-EOF
 
 
 """ =================================
@@ -504,4 +180,5 @@ nnoremap <silent><leader>mb :CMake build <cr>
 nnoremap <silent><leader>ms :CMake select_target<cr>
 nnoremap <silent><leader>mt :CMake select_build_type<cr>
 nnoremap <silent><leader>mcc :CMake clean<cr>
+
 
