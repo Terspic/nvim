@@ -1,5 +1,5 @@
 local dap = require('dap')
-local Path = require("plenary.path")
+local Path = require('plenary.path')
 
 dap.adapters.lldb = {
 	type = 'executable',
@@ -13,22 +13,7 @@ dap.adapters.coreclr = {
 	args = { '--interpreter=vscode' },
 }
 
-if Path:new(".vscode/launch.json"):exists() then
-	require("dap.ext.vscode").load_launchjs(nil, { coreclr = { 'cs' } })
-else
-	dap.configurations.cs = {
-		{
-			type = "coreclr",
-			name = "launch - netcoredbg",
-			request = "launch",
-			program = function()
-				return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net6.0', 'file')
-			end,
-		}
-	}
-end
-
-if Path:new(".vscode/launch.json"):exists() then
+if Path:new('.vscode/launch.json'):exists() then
 	require('dap.ext.vscode').load_launchjs(nil, { lldb = { 'rust' } })
 else
 	dap.configurations.rust = {
@@ -46,7 +31,7 @@ else
 	}
 end
 
-if Path:new(".vscode/launch.json"):exists() then
+if Path:new('.vscode/launch.json'):exists() then
 	require('dap.ext.vscode').load_launchjs(nil, { lldb = { 'cpp' } })
 else
 	dap.configurations.cpp = {
@@ -65,6 +50,20 @@ else
 end
 dap.configurations.c = dap.configurations.cpp
 
+if Path:new('.vscode/launch.json'):exists() then
+	require('dap.ext.vscode').load_launchjs(nil, { coreclr = { 'cs' } })
+else
+	dap.configurations.cs = {
+		{
+			type = 'coreclr',
+			name = 'launch - netcoredbg',
+			request = 'launch',
+			program = function()
+				return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net6.0', 'file')
+			end,
+		}
+	}
+end
 
 local dapui = require('dapui')
 dapui.setup({
@@ -76,7 +75,7 @@ dapui.setup({
 				{ id = 'watches', size = 0.25 },
 			},
 			size = 40,
-			position = "left",
+			position = 'left',
 		},
 	},
 })
@@ -89,4 +88,5 @@ dap.listeners.before.event_terminated['dapui_config'] = function()
 end
 dap.listeners.before.event_exited['dapui_config'] = function()
 	dapui.close({})
+	vim.cmd('NvimTreeOpen')
 end

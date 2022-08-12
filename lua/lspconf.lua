@@ -44,14 +44,31 @@ cmp.setup.cmdline(':', {
 	})
 })
 
+local signs = {
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " "
+}
+
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = ""})
+end
+
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_config = require('lspconfig')
 
+local function on_attach(client, bufnr)
+	require('aerial').on_attach(client, bufnr)
+end
+
 -- rust analyser
 lsp_config.rust_analyzer.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 	settings = {
 		["rust-analyzer"] = {
 			cargo = {
@@ -70,21 +87,25 @@ lsp_config.rust_analyzer.setup({
 -- Python Jedi
 lsp_config.jedi_language_server.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- Clangd
 lsp_config.clangd.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- Vim Language server
 lsp_config.vimls.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- CMake Language server
 lsp_config.cmake.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- Lua Language server
@@ -94,6 +115,7 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 lsp_config.sumneko_lua.setup {
 	capabilities = capabilities,
+	on_attach = on_attach,
 	settings = {
 		Lua = {
 			runtime = {
@@ -118,19 +140,29 @@ local pid = vim.fn.getpid()
 local omnisharp_bin = '/usr/bin/omnisharp'
 lsp_config.omnisharp.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 	cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
+})
+
+lsp_config.fsautocomplete.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- HTML CSS Javascript Language server
 lsp_config.cssls.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 lsp_config.html.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 lsp_config.jsonls.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 lsp_config.eslint.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })

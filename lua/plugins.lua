@@ -1,27 +1,27 @@
 vim.cmd [[packadd packer.nvim]]
 
-require("packer").startup({function()
+require("packer").startup({ function()
 	use 'wbthomason/packer.nvim'
 	use 'nvim-lua/plenary.nvim'
 	use 'MunifTanjim/nui.nvim'
 	use 'kyazdani42/nvim-web-devicons'
+	use 'BlakeJC94/alpha-nvim-fortune'
 
 	-- Languages
 	use 'Shatur/neovim-cmake'
 	use 'sheerun/vim-polyglot'
 	use 'tikhomirov/vim-glsl'
 	use 'rust-lang/rust.vim'
-	use {
-		'saecki/crates.nvim',
-		config = function() require('plugins.crates') end,
-	}
 	use 'fladson/vim-kitty'
 	use 'beyondmarc/hlsl.vim'
 
 	-- Themes
 	use 'Terspic/nord.nvim'
 	use 'folke/tokyonight.nvim'
-	use 'rmehri01/onenord.nvim'
+	use {
+		"EdenEast/nightfox.nvim",
+		config = function() require('plugins.nightfox') end
+	}
 
 	-- LSP plugins
 	use 'neovim/nvim-lspconfig'
@@ -65,8 +65,9 @@ require("packer").startup({function()
 		config = function() require('plugins.lualine') end,
 	}
 	use {
-		'seblj/nvim-tabline',
-		config = function() require('plugins.tabline') end
+		'akinsho/bufferline.nvim',
+		tag = 'v2.4.0',
+		config = function() require('plugins.bufferline') end,
 	}
 	use {
 		'kyazdani42/nvim-tree.lua',
@@ -74,7 +75,6 @@ require("packer").startup({function()
 	}
 	use {
 		'nvim-telescope/telescope.nvim',
-		tag = '0.1.0',
 		config = function() require('plugins.telescope') end,
 		requires = {
 			'nvim-telescope/telescope-dap.nvim',
@@ -115,6 +115,16 @@ require("packer").startup({function()
 		'j-hui/fidget.nvim',
 		config = function() require('plugins.fidget') end,
 	}
+	use {
+		'stevearc/aerial.nvim',
+		config =
+		function()
+			require('aerial').setup({
+				close_behavior = "global",
+				default_direction = "right",
+			})
+		end,
+	}
 
 	-- Misc
 	use {
@@ -126,11 +136,11 @@ require("packer").startup({function()
 		'folke/which-key.nvim',
 		config = function() require('plugins.which-key') end,
 	}
-	end,
+end,
 	config = {
 		display = {
 			open_fn = function()
-				return require('packer.util').float({border = 'single'})
+				return require('packer.util').float({ border = 'single' })
 			end
 		}
 	}

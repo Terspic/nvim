@@ -1,5 +1,15 @@
 local wk = require('which-key')
 
+vim.cmd [[
+nnoremap <space> <Nop>
+let mapleader = " "
+ 
+nnoremap <silent> <c-Left> <cmd>vertical resize -3<cr>
+nnoremap <silent> <c-Right> <cmd>vertical resize +3<cr>
+nnoremap <silent> <c-Up> <cmd>resize +3<cr>
+nnoremap <silent> <c-Down> <cmd>resize -3<cr>
+]]
+
 wk.setup({})
 
 wk.register({
@@ -14,7 +24,9 @@ wk.register({
 		o = {
 			name = "+others",
 			t = { '<cmd>ToggleTerm direction=horizontal<cr>', 'toggle terminal' },
-			r = { 'source ~/.config/nvim/init.lua<cr>', 'reload config' },
+			c = { '<cmd>PackerCompile<cr>', 'compile packages' },
+			u = { '<cmd>PackerSync<cr>', 'update packages' },
+			i = { '<cmd>PackerInstall<cr>', 'install packages' },
 		},
 		q = {
 			name = 'quickfix',
@@ -33,6 +45,10 @@ wk.register({
 				name = '+symbols',
 				w = { '<cmd>Telescope lsp_workspace_symbols initial_mode=normal<cr>', 'workspace' },
 				d = { '<cmd>Telescope lsp_document_symbols initial_mode=normal<cr>', 'document' },
+				t = { '<cmd>AerialToggle<cr>', 'toggle' },
+				c = { '<cmd>AerialCloseAll<cr>', 'close' },
+				n = { '<cmd>AerialNext<cr>', 'next' },
+				p = { '<cmd>AerialPrev<cr>', 'prev' },
 			},
 			d = {
 				name = "+diagnostics",
@@ -59,6 +75,7 @@ wk.register({
 			h = { '<cmd>Telescope help_tags<cr>', 'help' },
 			d = { '<cmd>Telescope builtin<cr>', 'builtins' },
 			g = { '<cmd>Telescope live_grep<cr>', 'grep' },
+			o = { '<cmd>Telescope old_files<cr>', 'recent' },
 		},
 		d = {
 			name = '+debug',
@@ -92,10 +109,10 @@ wk.register({
 			name = '+git',
 			d = {
 				name = '+diffview',
-				d = { '<cmd>DiffViewOpen<cr>', 'open' },
-				c = { '<cmd>DiffViewClose<cr>', 'close' },
-				f = { '<cmd>DiffViewFileHistory<cr>', 'file history' },
-				r = { '<cmd>DiffViewRefresh<cr>', 'refresh view' },
+				d = { '<cmd>DiffviewOpen<cr>', 'open' },
+				c = { '<cmd>DiffviewClose<cr>', 'close' },
+				f = { '<cmd>DiffviewFileHistory<cr>', 'file history' },
+				r = { '<cmd>DiffviewRefresh<cr>', 'refresh view' },
 			}
 		},
 		p = {
@@ -112,6 +129,13 @@ wk.register({
 			s = { '<cmd>CMake select_target<cr>', 'target' },
 			t = { '<cmd>CMake select_build_type<cr>', 'build_type' },
 			x = { '<cmd>CMake clean<cr>', 'clean' },
+		},
+		b = {
+			name = "+buffers",
+			n = { "<cmd>bnext<cr>", "next" },
+			p = { "<cmd>bprev<cr>", "prev" },
+			e = { "<cmd>ene<cr>", "new buffer" },
+			d = { "<cmd>bd d%<cr>", "delete current buffer" },
 		}
 	}
 })

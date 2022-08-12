@@ -1,4 +1,3 @@
-vim.cmd[[au BufRead,BufNewFile *.wgsl	set filetype=wgsl]]
 require('nvim-treesitter.configs').setup({
 	ensure_installed = {'c', 'cpp', 'rust', 'lua', 'vim', 'wgsl', 'glsl'},
 	sync_install = true,
