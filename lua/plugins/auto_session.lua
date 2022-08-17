@@ -9,7 +9,7 @@ require('auto-session').setup({
 		'ToggleTermToggleAll',
 		'tabdo AerialCloseAll', 'tabfirst'
 	},
-	post_restore_cmds = { 'NvimTreeOpen' }
+	post_restore_cmds = { require('plugins.daputils').load_debug_configs }
 })
 require('session-lens').setup {
 	previewer = false,

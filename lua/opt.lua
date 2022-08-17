@@ -16,7 +16,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.hls = false
-vim.opt.ic = true
+vim.opt.ic = false
 
 -- rust opt
 vim.g.rustfmt_autosave = true

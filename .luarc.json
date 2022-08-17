@@ -6,7 +6,9 @@
     "Lua.diagnostics.globals": [
         "vim",
         "use",
-        "lfs"
+        "lfs",
+        "load_json_config",
+        "languages_config"
     ],
     "Lua.workspace.checkThirdParty": false,
     "Lua.workspace.library": [

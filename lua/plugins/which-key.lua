@@ -13,7 +13,7 @@ nnoremap <silent> <c-Down> <cmd>resize -3<cr>
 wk.setup({})
 
 wk.register({
-	['<F2>'] = { '<cmd>lua require("lsp_ui").rename()<cr>', 'lsp rename' },
+	['<F2>'] = { '<cmd>lua require("lsp_ui").lsp_rename()<cr>', 'lsp rename' },
 	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug conitnue' },
 	['<F10>'] = { '<cmd>lua require("dap").step_over()<cr>', 'debug step over' },
 	['<F11>'] = { '<cmd>lua require("dap").step_into()<cr>', 'debug step into' },

@@ -2,7 +2,7 @@ require('nvim-tree').setup{
 	disable_netrw = true,
 	update_cwd = true,
 	auto_reload_on_write = true,
-	open_on_tab = true,
+	open_on_tab = false,
 	actions = {
 		open_file = {
 			resize_window = true,
