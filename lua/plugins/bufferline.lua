@@ -1,4 +1,9 @@
-require('bufferline').setup {
+local ok, bufferline = pcall(require, 'bufferline')
+if not ok then
+	return
+end
+
+bufferline.setup({
 	options = {
 		mode = "tabs", -- set to "tabs" to only show tabpages instead
 		numbers = "none",
@@ -31,7 +36,6 @@ require('bufferline').setup {
 		diagnostics_update_in_insert = true,
 		offsets = {
 			{ filetype = "NvimTree", text = "File Explorer", text_align = "center" },
-			{ filetype = "aerial", text = "Outline", text_align = "center" },
 		},
 		color_icons = true, -- whether or not to add the filetype icon highlights
 		show_buffer_icons = true, -- disable filetype icons for buffers
@@ -46,4 +50,4 @@ require('bufferline').setup {
 		enforce_regular_tubs = true,
 		always_show_bufferline = true,
 	}
-}
+})

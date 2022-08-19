@@ -1,4 +1,7 @@
-local wk = require('which-key')
+local ok, wk = pcall(require, 'which-key')
+if not ok then
+	return
+end
 
 vim.cmd [[
 nnoremap <space> <Nop>
@@ -27,6 +30,7 @@ wk.register({
 			c = { '<cmd>PackerCompile<cr>', 'compile packages' },
 			u = { '<cmd>PackerSync<cr>', 'update packages' },
 			i = { '<cmd>PackerInstall<cr>', 'install packages' },
+			r = { '<cmd>PackerClean<cr>', 'remove packages' },
 		},
 		q = {
 			name = 'quickfix',
@@ -45,10 +49,6 @@ wk.register({
 				name = '+symbols',
 				w = { '<cmd>Telescope lsp_workspace_symbols initial_mode=normal<cr>', 'workspace' },
 				d = { '<cmd>Telescope lsp_document_symbols initial_mode=normal<cr>', 'document' },
-				t = { '<cmd>AerialToggle<cr>', 'toggle' },
-				c = { '<cmd>AerialCloseAll<cr>', 'close' },
-				n = { '<cmd>AerialNext<cr>', 'next' },
-				p = { '<cmd>AerialPrev<cr>', 'prev' },
 			},
 			d = {
 				name = "+diagnostics",
@@ -58,10 +58,10 @@ wk.register({
 			},
 			a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'actions' },
 			r = { '<cmd>Telescope lsp_references initial_mode=normal<cr>', 'references' },
-			h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'hover' },
+		h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'hover' },
 			f = { '<cmd>lua vim.lsp.buf.formatting()<cr>', 'format' },
 		},
-		n = {
+		t = {
 			name = '+tree',
 			o = { '<cmd>NvimTreeOpen <cr>', 'open' },
 			c = { '<cmd>NvimTreeClose<cr>', 'close' },
@@ -70,15 +70,17 @@ wk.register({
 		},
 		f = {
 			name = '+find',
-			f = { '<cmd>Telescope find_files<cr>', 'files' },
+			f = { '<cmd>Telescope find_files theme=dropdown<cr>', 'files' },
 			b = { '<cmd>Telescope buffers<cr>', 'buffers' },
 			h = { '<cmd>Telescope help_tags<cr>', 'help' },
 			d = { '<cmd>Telescope builtin<cr>', 'builtins' },
 			g = { '<cmd>Telescope live_grep<cr>', 'grep' },
-			o = { '<cmd>Telescope old_files<cr>', 'recent' },
+			o = { '<cmd>Telescope oldfiles<cr>', 'recent' },
+			s = { '<cmd>Telescope treesitter<cr>', 'symbols' },
 		},
 		d = {
 			name = '+debug',
+			c = { '<cmd>Telescope dap commands theme=dropdown<cr>', 'commands' },
 			b = { '<cmd>lua require("dap").toggle_breakpoint()<cr>', 'breakpoint' },
 			B = { '<cmd>lua require("dap").set_breakpoint(vim.fn.input("Brekapoint condition : "))<cr>', 'condiational breakpoint' },
 			p = { '<cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<cr>', 'log breakpoint' },

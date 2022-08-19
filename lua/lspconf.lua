@@ -62,7 +62,6 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 local lsp_config = require('lspconfig')
 
 local function on_attach(client, bufnr)
-	require('aerial').on_attach(client, bufnr)
 end
 
 -- rust analyser

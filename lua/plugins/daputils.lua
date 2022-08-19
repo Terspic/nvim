@@ -54,6 +54,9 @@ local function load_configs()
 			dap.configurations[k] = {l.raw}
 		end
 	end
+
+	-- TODO add duplicates configs 
+	dap.configurations.c = dap.configurations.cpp
 end
 
 return {

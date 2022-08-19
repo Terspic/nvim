@@ -1,4 +1,9 @@
-require('nightfox').setup({
+local ok, nightfox = pcall(require, 'nightfox')
+if not ok then
+	return
+end
+
+nightfox.setup({
 	options = {
 		transparent = false,		-- Disable setting background
 		terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`

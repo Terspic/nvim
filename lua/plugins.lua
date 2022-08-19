@@ -115,16 +115,6 @@ require("packer").startup({ function()
 		'j-hui/fidget.nvim',
 		config = function() require('plugins.fidget') end,
 	}
-	use {
-		'stevearc/aerial.nvim',
-		config =
-		function()
-			require('aerial').setup({
-				close_behavior = "global",
-				default_direction = "right",
-			})
-		end,
-	}
 
 	-- Misc
 	use {

@@ -1,4 +1,8 @@
-local telescope = require('telescope')
+local ok, telescope = pcall(require, 'telescope')
+if not ok then
+	return
+end
+
 telescope.setup({
 	defaults = {
 		mappings = {
@@ -8,10 +12,19 @@ telescope.setup({
 		},
 	},
 
+	pickers = {
+		find_files = {
+			previewer = false,
+		}
+	},
+
 	extensions = {
 		['ui-select'] = {
 			require('telescope.themes').get_dropdown({})
 		},
+		dap = {
+			require('telescope.themes').get_dropdown({})
+		}
 	},
 })
 telescope.load_extension('ui-select')
