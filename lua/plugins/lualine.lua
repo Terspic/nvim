@@ -43,7 +43,7 @@ ins_left {
 	function ()
 		return '▊'
 	end,
-	color = { fg = colors.nord8_gui },
+	color = { fg = colors.nord9_gui },
 	padding = { left = 0, right = 1 }
 }
 
@@ -111,12 +111,14 @@ ins_left {
 
 ins_right {
 	'o:encoding',
+	padding = { right = 1, left = 1 },
 }
 
 ins_right {
 	'fileformat',
 	fmt = string.upper,
 	icons_enabled = false,
+	padding = { right = 1, left = 1 },
 }
 
 ins_right {
@@ -125,6 +127,7 @@ ins_right {
 
 ins_right {
 	'progress',
+	padding = { right = 1, left = 0 },
 }
 
 ins_right {
@@ -140,7 +143,7 @@ ins_right {
 ins_right {
 	'branch',
 	icon = '',
-	color = { fg = colors.nord0_gui, bg = colors.nord8_gui, gui = 'bold' },
+	color = { fg = colors.nord0_gui, bg = colors.nord9_gui, gui = 'bold' },
 }
 
 lualine.setup(config)
