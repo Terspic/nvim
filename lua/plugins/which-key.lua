@@ -13,15 +13,15 @@ nnoremap <silent> <c-Up> <cmd>resize +3<cr>
 nnoremap <silent> <c-Down> <cmd>resize -3<cr>
 ]]
 
+
 wk.setup({})
 
 wk.register({
-	['<F2>'] = { '<cmd>lua require("lsp_ui").lsp_rename()<cr>', 'lsp rename' },
+	['<F2>'] = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'lsp rename' },
 	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug conitnue' },
 	['<F10>'] = { '<cmd>lua require("dap").step_over()<cr>', 'debug step over' },
 	['<F11>'] = { '<cmd>lua require("dap").step_into()<cr>', 'debug step into' },
 	['<F12>'] = { '<cmd>lua require("dap").step_out()<cr>', 'debug step out' },
-
 
 	['<leader>'] = {
 		o = {
@@ -31,6 +31,8 @@ wk.register({
 			u = { '<cmd>PackerSync<cr>', 'update packages' },
 			i = { '<cmd>PackerInstall<cr>', 'install packages' },
 			r = { '<cmd>PackerClean<cr>', 'remove packages' },
+			s = { '<cmd>source %<cr>', 'source current file' },
+
 		},
 		q = {
 			name = 'quickfix',

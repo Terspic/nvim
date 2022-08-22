@@ -1,6 +1,11 @@
 vim.cmd [[packadd packer.nvim]]
 
-require("packer").startup({ function()
+local ok, packer = pcall(require, 'packer')
+if not ok then
+	return
+end
+
+packer.startup({ function()
 	use 'wbthomason/packer.nvim'
 	use 'nvim-lua/plenary.nvim'
 	use 'MunifTanjim/nui.nvim'
@@ -125,6 +130,10 @@ require("packer").startup({ function()
 	use {
 		'folke/which-key.nvim',
 		config = function() require('plugins.which-key') end,
+	}
+	use {
+		'numToStr/Comment.nvim',
+		config = function() require('plugins.comment') end,
 	}
 end,
 	config = {

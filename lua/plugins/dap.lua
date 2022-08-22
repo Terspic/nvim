@@ -27,6 +27,13 @@ dapui.setup({
 			size = 40,
 			position = 'left',
 		},
+		{
+			elements = {
+				'repl',
+			},
+			position = 'bottom',
+			size = 0.25,
+		}
 	},
 })
 dap.listeners.after.event_initialized['dapui_config'] = function()
