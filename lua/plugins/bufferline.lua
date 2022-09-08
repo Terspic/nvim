@@ -6,7 +6,7 @@ end
 bufferline.setup({
 	options = {
 		mode = "tabs", -- set to "tabs" to only show tabpages instead
-		numbers = "none",
+		numbers = "ordinal",
 		close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
 		right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
 		left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
@@ -47,7 +47,8 @@ bufferline.setup({
 		-- can also be a table containing 2 custom separators
 		-- [focused and unfocused]. eg: { '|', '|' }
 		separator_style = "thick",
-		enforce_regular_tubs = true,
+		enforce_regular_tabs = true,
 		always_show_bufferline = true,
+		sort_by = 'id',
 	}
 })

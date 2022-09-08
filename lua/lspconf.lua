@@ -146,6 +146,7 @@ lsp_config.omnisharp.setup({
 lsp_config.fsautocomplete.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	cmd = { "/home/julien/.dotnet/tools/fsautocomplete", "--background-sevice-enabled" },
 })
 
 -- HTML CSS Javascript Language server

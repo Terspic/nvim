@@ -31,6 +31,12 @@ packer.startup({ function()
 	-- LSP plugins
 	use 'neovim/nvim-lspconfig'
 	use {
+		'jose-elias-alvarez/null-ls.nvim',
+		config = function ()
+			require('plugins.null_ls')
+		end
+	}
+	use {
 		'hrsh7th/nvim-cmp',
 		requires = {
 			'hrsh7th/cmp-nvim-lsp',
@@ -113,8 +119,7 @@ packer.startup({ function()
 	}
 	use {
 		'iamcco/markdown-preview.nvim',
-		run = 'cd app && yarn install',
-		cmd = 'MarkdownPreview'
+		run = "cd app && npm install",
 	}
 	use {
 		'j-hui/fidget.nvim',
@@ -135,6 +140,7 @@ packer.startup({ function()
 		'numToStr/Comment.nvim',
 		config = function() require('plugins.comment') end,
 	}
+	use 'paretje/nvim-man'
 end,
 	config = {
 		display = {

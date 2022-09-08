@@ -43,7 +43,8 @@ wk.register({
 			name = '+code',
 			g = {
 				name = '+go to',
-				d = { '<cmd>Telescope lsp_definitions initial_mode=normal<cr>', 'defintions' },
+				d = { '<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>', 'definitions' },
+				D = { '<cmd>Telescope lsp_definitions initial_mode=normal<cr>', 'definitions' },
 				i = { '<cmd>Telescope lsp_implementations initial_mode=normal<cr>', 'implementations' },
 				t = { '<cmd>Telescope lsp_type_definitions initial_mode=normal<cr>', 'type def' },
 			},
@@ -95,10 +96,10 @@ wk.register({
 		},
 		w = {
 			name = 'winshift',
-			u = { '<cmd>WinShift up<cr>', 'up' },
-			d = { '<cmd>WinShift down<cr>', 'down' },
-			l = { '<cmd>WinShift left<cr>', 'left' },
-			r = { '<cmd>WinShift right<cr>', 'right' },
+			k = { '<cmd>WinShift up<cr>', 'up' },
+			j = { '<cmd>WinShift down<cr>', 'down' },
+			h = { '<cmd>WinShift left<cr>', 'left' },
+			l = { '<cmd>WinShift right<cr>', 'right' },
 			s = { '<cmd>WinShift swap<cr>', 'swap' },
 		},
 		x = {
