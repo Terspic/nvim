@@ -17,5 +17,9 @@ auto_session.setup({
 })
 require('session-lens').setup {
 	previewer = false,
-	prompt_title = 'Sessions'
+	prompt_title = 'Sessions',
+	theme_conf = {
+		border = true,
+		winblend = 0,
+	}
 }

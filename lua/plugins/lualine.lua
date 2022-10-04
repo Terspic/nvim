@@ -112,6 +112,7 @@ ins_left {
 ins_right {
 	'o:encoding',
 	padding = { right = 1, left = 1 },
+	color = { gui = "bold", bg = colors.nord0_gui },
 }
 
 ins_right {
@@ -119,15 +120,12 @@ ins_right {
 	fmt = string.upper,
 	icons_enabled = false,
 	padding = { right = 1, left = 1 },
+	color = { gui = "bold", bg = colors.nord0_gui },
 }
 
 ins_right {
 	'location',
-}
-
-ins_right {
-	'progress',
-	padding = { right = 1, left = 0 },
+	color = { gui = "bold", bg = colors.nord0_gui },
 }
 
 ins_right {
@@ -137,7 +135,8 @@ ins_right {
 		modified = { fg = colors.nord13_gui },
 		removed = { fg = colors.nord11_gui },
 	},
-	padding = { left = 1, right = 1 }
+	padding = { left = 1, right = 1 },
+	color = { gui = "bold", bg = colors.nord0_gui },
 }
 
 ins_right {

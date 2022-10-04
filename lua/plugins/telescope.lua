@@ -10,6 +10,7 @@ telescope.setup({
 				['t'] = require('telescope.actions').select_tab,
 			},
 		},
+		prompt_prefix = " "
 	},
 
 	pickers = {
@@ -24,7 +25,7 @@ telescope.setup({
 		},
 		dap = {
 			require('telescope.themes').get_dropdown({})
-		}
+		},
 	},
 })
 telescope.load_extension('ui-select')

@@ -26,9 +26,6 @@ dashboard.section.buttons.val = {
     dashboard.button( "q", "  > Quit NVIM", ":qa<CR>", {}),
 }
 
-local fortune = require("alpha.fortune")
-dashboard.section.footer.val = fortune()
-
 -- Send config to alpha
 alpha.setup(dashboard.opts)
 

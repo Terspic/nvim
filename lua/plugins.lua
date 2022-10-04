@@ -10,7 +10,6 @@ packer.startup({ function()
 	use 'nvim-lua/plenary.nvim'
 	use 'MunifTanjim/nui.nvim'
 	use 'kyazdani42/nvim-web-devicons'
-	use 'BlakeJC94/alpha-nvim-fortune'
 
 	-- Languages
 	use 'Shatur/neovim-cmake'
@@ -32,9 +31,7 @@ packer.startup({ function()
 	use 'neovim/nvim-lspconfig'
 	use {
 		'jose-elias-alvarez/null-ls.nvim',
-		config = function ()
-			require('plugins.null_ls')
-		end
+		config = function() require('plugins.null_ls') end
 	}
 	use {
 		'hrsh7th/nvim-cmp',

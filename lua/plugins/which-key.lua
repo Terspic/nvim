@@ -23,6 +23,11 @@ wk.register({
 	['<F11>'] = { '<cmd>lua require("dap").step_into()<cr>', 'debug step into' },
 	['<F12>'] = { '<cmd>lua require("dap").step_out()<cr>', 'debug step out' },
 
+	['g'] = {
+		p = { '<cmd>bprev<cr>', 'previous buffer' },
+		n = { '<cmd>bnext<cr>', 'next buffer' },
+	},
+
 	['<leader>'] = {
 		o = {
 			name = "+others",
@@ -73,7 +78,7 @@ wk.register({
 		},
 		f = {
 			name = '+find',
-			f = { '<cmd>Telescope find_files theme=dropdown<cr>', 'files' },
+			f = { '<cmd>Telescope find_files <cr>', 'files' },
 			b = { '<cmd>Telescope buffers<cr>', 'buffers' },
 			h = { '<cmd>Telescope help_tags<cr>', 'help' },
 			d = { '<cmd>Telescope builtin<cr>', 'builtins' },
