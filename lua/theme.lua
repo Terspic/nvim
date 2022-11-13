@@ -10,23 +10,8 @@ local function nord_setup()
 	vim.cmd [[ colorscheme nord ]]
 end
 
-local function tokyonight_setup()
-	vim.cmd [[ colorscheme tokyonight ]]
-end
-
-local function onenord_setup()
-	vim.cmd [[ colorscheme onenord ]]
-end
-
-local function nordfox_setup()
-	vim.cmd [[ colorscheme nordfox ]]
-end
-
 local themes = {
 	nord = nord_setup,
-	tokyonight = tokyonight_setup,
-	onenord = onenord_setup,
-	nordfox = nordfox_setup
 }
 
 -- select themes

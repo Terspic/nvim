@@ -21,11 +21,6 @@ packer.startup({ function()
 
 	-- Themes
 	use 'Terspic/nord.nvim'
-	use 'folke/tokyonight.nvim'
-	use {
-		"EdenEast/nightfox.nvim",
-		config = function() require('plugins.nightfox') end
-	}
 
 	-- LSP plugins
 	use 'neovim/nvim-lspconfig'
@@ -55,6 +50,7 @@ packer.startup({ function()
 		requires = { 'rcarriga/nvim-dap-ui' },
 		config = function() require('plugins.dap') end,
 	}
+	use 'mfussenegger/nvim-dap-python'
 
 	-- Git plugins
 	use {

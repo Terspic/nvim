@@ -106,7 +106,10 @@ ins_left {
 		color_error = { fg = colors.nord11_gui },
 		color_warn = { fg = colors.nord13_gui },
 		color_info = { fg = colors.nord10_gui },
-	}
+	},
+	on_click = function()
+		vim.cmd("TroubleToggle")
+	end
 }
 
 ins_right {

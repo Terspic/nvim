@@ -15,6 +15,11 @@ dap.adapters.coreclr = {
 	args = { '--interpreter=vscode' },
 }
 
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+
+local daputils = require('plugins.daputils')
+daputils.load_debug_configs()
+
 local dapui = require('dapui')
 dapui.setup({
 	layouts = {
@@ -30,6 +35,7 @@ dapui.setup({
 		{
 			elements = {
 				'repl',
+				'console',
 			},
 			position = 'bottom',
 			size = 0.25,

@@ -10,21 +10,21 @@ telescope.setup({
 				['t'] = require('telescope.actions').select_tab,
 			},
 		},
-		prompt_prefix = " "
+		prompt_prefix = "> "
 	},
 
 	pickers = {
 		find_files = {
 			previewer = false,
+			layout_config = {
+				horizontal = { width = 0.5, height = 0.5 },
+			},
 		}
 	},
 
 	extensions = {
 		['ui-select'] = {
-			require('telescope.themes').get_dropdown({})
-		},
-		dap = {
-			require('telescope.themes').get_dropdown({})
+			require('telescope.themes').get_cursor({})
 		},
 	},
 })
