@@ -17,7 +17,6 @@ packer.startup({ function()
 	use 'tikhomirov/vim-glsl'
 	use 'rust-lang/rust.vim'
 	use 'fladson/vim-kitty'
-	use 'beyondmarc/hlsl.vim'
 
 	-- Themes
 	use 'Terspic/nord.nvim'
@@ -57,7 +56,6 @@ packer.startup({ function()
 		'lewis6991/gitsigns.nvim',
 		config = function() require('plugins.gitsigns') end,
 	}
-	use 'tpope/vim-fugitive'
 	use {
 		'sindrets/diffview.nvim',
 		config = function() require('plugins.diffview') end,
@@ -133,7 +131,6 @@ packer.startup({ function()
 		'numToStr/Comment.nvim',
 		config = function() require('plugins.comment') end,
 	}
-	use 'paretje/nvim-man'
 end,
 	config = {
 		display = {
