@@ -17,6 +17,7 @@ packer.startup({ function()
 	use 'tikhomirov/vim-glsl'
 	use 'rust-lang/rust.vim'
 	use 'fladson/vim-kitty'
+	use 'ron-rs/ron.vim'
 
 	-- Themes
 	use 'Terspic/nord.nvim'
@@ -68,7 +69,6 @@ packer.startup({ function()
 	}
 	use {
 		'akinsho/bufferline.nvim',
-		tag = 'v2.4.0',
 		config = function() require('plugins.bufferline') end,
 	}
 	use {

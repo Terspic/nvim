@@ -22,7 +22,7 @@ local config = {
 		lualine_y = {},
 		lualine_z = {}
 	},
-	extensions = { 'fugitive', 'toggleterm', 'quickfix' }
+	extensions = { 'toggleterm', 'quickfix' }
 }
 
 local conditions =  {
@@ -107,6 +107,7 @@ ins_left {
 		color_warn = { fg = colors.nord13_gui },
 		color_info = { fg = colors.nord10_gui },
 	},
+	color = { gui = "bold", bg = colors.nord0_gui },
 	on_click = function()
 		vim.cmd("TroubleToggle")
 	end
@@ -114,21 +115,31 @@ ins_left {
 
 ins_right {
 	'o:encoding',
-	padding = { right = 1, left = 1 },
-	color = { gui = "bold", bg = colors.nord0_gui },
+	color = { gui = "bold" }
+}
+
+ins_right {
+	function ()
+		return '|'
+	end
 }
 
 ins_right {
 	'fileformat',
 	fmt = string.upper,
 	icons_enabled = false,
-	padding = { right = 1, left = 1 },
-	color = { gui = "bold", bg = colors.nord0_gui },
+	color = { gui = "bold" }
+}
+
+ins_right {
+	function ()
+		return '|'
+	end
 }
 
 ins_right {
 	'location',
-	color = { gui = "bold", bg = colors.nord0_gui },
+	color = { gui = "bold" }
 }
 
 ins_right {
@@ -138,7 +149,6 @@ ins_right {
 		modified = { fg = colors.nord13_gui },
 		removed = { fg = colors.nord11_gui },
 	},
-	padding = { left = 1, right = 1 },
 	color = { gui = "bold", bg = colors.nord0_gui },
 }
 
@@ -146,6 +156,16 @@ ins_right {
 	'branch',
 	icon = '',
 	color = { fg = colors.nord0_gui, bg = colors.nord9_gui, gui = 'bold' },
+	padding = { left = 1, right = 0 },
+}
+
+
+ins_right {
+	function ()
+		return '▊'
+	end,
+	color = { fg = colors.nord9_gui },
+	padding = { left = 0, right = 0 }
 }
 
 lualine.setup(config)

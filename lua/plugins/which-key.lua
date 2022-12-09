@@ -17,7 +17,7 @@ nnoremap <silent> <c-Down> <cmd>resize -3<cr>
 wk.setup({})
 
 wk.register({
-	['<F2>'] = { '<cmd>lua vim.lsp.buf.rename()<cr>', 'lsp rename' },
+	['<F2>'] = { '<cmd>lua require("lsp_ui").rename()<cr>', 'lsp rename' },
 	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug conitnue' },
 	['<F10>'] = { '<cmd>lua require("dap").step_over()<cr>', 'debug step over' },
 	['<F11>'] = { '<cmd>lua require("dap").step_into()<cr>', 'debug step into' },
@@ -66,8 +66,8 @@ wk.register({
 			},
 			a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'actions' },
 			r = { '<cmd>Telescope lsp_references initial_mode=normal<cr>', 'references' },
-		h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'hover' },
-			f = { '<cmd>lua vim.lsp.buf.formatting()<cr>', 'format' },
+			h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'hover' },
+			f = { '<cmd>lua vim.lsp.buf.format()<cr>', 'format' },
 		},
 		t = {
 			name = '+tree',

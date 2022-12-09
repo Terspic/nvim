@@ -61,7 +61,7 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_config = require('lspconfig')
 
-local function on_attach(client, bufnr)
+local function on_attach(_client, _bufnr)
 end
 
 -- rust analyser
@@ -141,12 +141,6 @@ lsp_config.omnisharp.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 	cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
-})
-
-lsp_config.fsautocomplete.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-	cmd = { "/home/julien/.dotnet/tools/fsautocomplete", "--background-sevice-enabled" },
 })
 
 -- HTML CSS Javascript Language server
