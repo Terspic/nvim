@@ -31,9 +31,9 @@ local rename = function ()
 
 	local rename_input = Input(popup_opts, {
 		prompt = "> ",
-		default_value = "",
+		default_value = vim.fn.expand("<cword>"),
 		on_close = function() end,
-		on_submit = function (new_name)
+		on_submit = function(new_name)
 			lsp_rename(new_name)
 		end,
 		on_change = function() end

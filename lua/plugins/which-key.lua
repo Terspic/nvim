@@ -6,7 +6,7 @@ end
 vim.cmd [[
 nnoremap <space> <Nop>
 let mapleader = " "
- 
+
 nnoremap <silent> <c-Left> <cmd>vertical resize -3<cr>
 nnoremap <silent> <c-Right> <cmd>vertical resize +3<cr>
 nnoremap <silent> <c-Up> <cmd>resize +3<cr>
@@ -82,18 +82,19 @@ wk.register({
 			b = { '<cmd>Telescope buffers<cr>', 'buffers' },
 			h = { '<cmd>Telescope help_tags<cr>', 'help' },
 			d = { '<cmd>Telescope builtin<cr>', 'builtins' },
-			g = { '<cmd>Telescope live_grep<cr>', 'grep' },
+			p = { '<cmd>Telescope live_grep<cr>', 'grep' },
+			g = { '<cmd>Telescope git_files theme=dropdown <cr>', 'git files' },
 			o = { '<cmd>Telescope oldfiles<cr>', 'recent' },
 			s = { '<cmd>Telescope treesitter<cr>', 'symbols' },
 		},
 		d = {
 			name = '+debug',
+			l = { '<cmd>Telescope dap list_breakpoints<cr>', 'breakpoints' },
 			c = { '<cmd>Telescope dap commands theme=dropdown<cr>', 'commands' },
 			b = { '<cmd>lua require("dap").toggle_breakpoint()<cr>', 'breakpoint' },
-			B = { '<cmd>lua require("dap").set_breakpoint(vim.fn.input("Brekapoint condition : "))<cr>', 'condiational breakpoint' },
+			B = { '<cmd>lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition : "))<cr>', 'condiational breakpoint' },
 			p = { '<cmd>lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<cr>', 'log breakpoint' },
 			r = { '<cmd>lua require("dap").repl.open()<cr>', 'repl' },
-			l = { '<cmd>lua require("dap").run_last()<cr>', 'run last' },
 		},
 		s = {
 			name = '+session',
@@ -134,8 +135,9 @@ wk.register({
 		m = {
 			name = 'cmake',
 			c = { '<cmd>CMake configure<cr>', 'configure' },
-			r = { '<cmd>CMake run<cr>', 'run' },
+			R = { '<cmd>CMake run<cr>', 'run' },
 			b = { '<cmd>CMake build<cr>', 'build' },
+			r = { '<cmd>CMake build_and_run<cr>', 'build and run' },
 			s = { '<cmd>CMake select_target<cr>', 'target' },
 			t = { '<cmd>CMake select_build_type<cr>', 'build_type' },
 			x = { '<cmd>CMake clean<cr>', 'clean' },

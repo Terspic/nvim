@@ -44,6 +44,7 @@ cmp.setup.cmdline(':', {
 	})
 })
 
+
 local signs = {
     Error = " ",
     Warn = " ",
@@ -55,7 +56,6 @@ for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = ""})
 end
-
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())

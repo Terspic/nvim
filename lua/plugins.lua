@@ -1,9 +1,13 @@
-vim.cmd [[packadd packer.nvim]]
-
-local ok, packer = pcall(require, 'packer')
-if not ok then
-	return
+-- Install packer
+local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+local is_bootstrap = false
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+	is_bootstrap = true
+  	vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+  	vim.cmd [[packadd packer.nvim]]
 end
+
+local packer = require('packer')
 
 packer.startup({ function()
 	use 'wbthomason/packer.nvim'
@@ -40,6 +44,7 @@ packer.startup({ function()
 			'hrsh7th/vim-vsnip',
 		},
 	}
+
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		config = function() require('plugins.treesitter') end,
@@ -69,8 +74,9 @@ packer.startup({ function()
 	}
 	use {
 		'akinsho/bufferline.nvim',
-		config = function() require('plugins.bufferline') end,
+		config = function() end, -- require('plugins.bufferline') end,
 	}
+
 	use {
 		'kyazdani42/nvim-tree.lua',
 		config = function() require('plugins.nvim-tree') end,
@@ -131,6 +137,9 @@ packer.startup({ function()
 		'numToStr/Comment.nvim',
 		config = function() require('plugins.comment') end,
 	}
+	if is_bootstrap then
+		packer.sync()
+	end
 end,
 	config = {
 		display = {
