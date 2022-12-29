@@ -25,9 +25,13 @@ packer.startup({ function()
 
 	-- Themes
 	use 'Terspic/nord.nvim'
+	use "rebelot/kanagawa.nvim"
 
 	-- LSP plugins
 	use 'neovim/nvim-lspconfig'
+    use {"williamboman/mason.nvim" }
+    use {"williamboman/mason-lspconfig.nvim" }
+
 	use {
 		'jose-elias-alvarez/null-ls.nvim',
 		config = function() require('plugins.null_ls') end
@@ -74,7 +78,7 @@ packer.startup({ function()
 	}
 	use {
 		'akinsho/bufferline.nvim',
-		config = function() end, -- require('plugins.bufferline') end,
+		config = function()  require("plugins.bufferline") end, -- require('plugins.bufferline') end,
 	}
 
 	use {

@@ -7,7 +7,6 @@ vim.opt.visualbell = true
 vim.opt.wrap = false
 vim.opt.cursorline = true
 vim.opt.mouse = "a"
-vim.opt.termguicolors = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -18,6 +17,14 @@ vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.hls = false
 vim.opt.ic = false
+vim.opt.showtabline = 2
+
+vim.opt.syntax = "on"
+vim.o.background = "dark"
+vim.opt.termguicolors = true
+
+-- colorscheme
+require("theme").kanagawa.setup()
 
 -- rust opt
 vim.g.rustfmt_autosave = true

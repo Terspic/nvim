@@ -3,13 +3,13 @@ if not ok then
 	return
 end
 
-local colors = require('nord.colors')
+local colors = require('theme').kanagawa.lualine_colors
 
 local config = {
 	options = {
 		globalstatus = true,
 		icons_enabled = true,
-		theme = 'nord',
+		theme = 'kanagawa',
 		section_separators = { left = '', right = '' },
 		component_separators = { left = '', right = '' },
 		always_divide_middle = true,
@@ -43,7 +43,7 @@ ins_left {
 	function ()
 		return '▊'
 	end,
-	color = { fg = colors.nord9_gui },
+	color = { fg = colors.blue },
 	padding = { left = 0, right = 1 }
 }
 
@@ -53,24 +53,24 @@ ins_left {
 	end,
 	color = function()
 		local mode_color = {
-			n = colors.nord14_gui,
-			i = colors.nord8_gui,
-			v = colors.nord7_gui,
-			[''] = colors.nord7_gui,
-			V = colors.nord7_gui,
-			c = colors.nord12_gui,
-			ce = colors.nord14_gui,
-			cv = colors.nord14_gui,
-			no = colors.nord14_gui,
-			s = colors.nord15_gui,
-			S = colors.nord15_gui,
-			r = colors.nord13_gui,
-			rm = colors.nord13_gui,
-			R = colors.nord13_gui,
-			Rv = colors.nord13_gui,
-			['r?'] = colors.nord13_gui,
-			['!'] = colors.nord7_gui,
-			t = colors.nord9_gui
+			n = colors.green,
+			i = colors.lightblue,
+			v = colors.turquoise,
+			[''] = colors.turquoise,
+			V = colors.turquoise,
+			c = colors.orange,
+			ce = colors.green,
+			cv = colors.green,
+			no = colors.green,
+			s = colors.violet,
+			S = colors.violet,
+			r = colors.yellow,
+			rm = colors.yellow,
+			R = colors.yellow,
+			Rv = colors.yellow,
+			['r?'] = colors.yellow,
+			['!'] = colors.turquoise,
+			t = colors.blue
 		}
 		return { fg = mode_color[vim.fn.mode()] }
 	end,
@@ -103,11 +103,11 @@ ins_left {
 	source = { 'nvim_diagnostics' },
 	symbols = { error = ' ', warn = ' ', info = ' ' },
 	diagnostics_color = {
-		color_error = { fg = colors.nord11_gui },
-		color_warn = { fg = colors.nord13_gui },
-		color_info = { fg = colors.nord10_gui },
+		color_error = { fg = colors.red },
+		color_warn = { fg = colors.yellow },
+		color_info = { fg = colors.dragonBlue },
 	},
-	color = { gui = "bold", bg = colors.nord0_gui },
+	color = { gui = "bold", bg = colors.bg },
 	on_click = function()
 		vim.cmd("TroubleToggle")
 	end
@@ -145,17 +145,17 @@ ins_right {
 ins_right {
 	'diff',
 	diff_color = {
-		added = { fg = colors.nord14_gui },
-		modified = { fg = colors.nord13_gui },
-		removed = { fg = colors.nord11_gui },
+		added = { fg = colors.green },
+		modified = { fg = colors.yellow },
+		removed = { fg = colors.red },
 	},
-	color = { gui = "bold", bg = colors.nord0_gui },
+	color = { gui = "bold", bg = colors.bg },
 }
 
 ins_right {
 	'branch',
 	icon = '',
-	color = { fg = colors.nord0_gui, bg = colors.nord9_gui, gui = 'bold' },
+	color = { fg = colors.bg, bg = colors.blue, gui = 'bold' },
 	padding = { left = 1, right = 0 },
 }
 
@@ -164,7 +164,7 @@ ins_right {
 	function ()
 		return '▊'
 	end,
-	color = { fg = colors.nord9_gui },
+	color = { fg = colors.blue },
 	padding = { left = 0, right = 0 }
 }
 

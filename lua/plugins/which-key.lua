@@ -48,7 +48,7 @@ wk.register({
 			name = '+code',
 			g = {
 				name = '+go to',
-				d = { '<cmd>tab split<cr><cmd>lua vim.lsp.buf.definition()<cr>', 'definitions' },
+				d = { '<cmd>lua vim.lsp.buf.definition()<cr>', 'definitions' },
 				D = { '<cmd>Telescope lsp_definitions initial_mode=normal<cr>', 'definitions' },
 				i = { '<cmd>Telescope lsp_implementations initial_mode=normal<cr>', 'implementations' },
 				t = { '<cmd>Telescope lsp_type_definitions initial_mode=normal<cr>', 'type def' },

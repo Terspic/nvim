@@ -19,15 +19,22 @@ telescope.setup({
 			layout_config = {
 				horizontal = { width = 0.5, height = 0.5 },
 			},
+		},
+		git_files = {
+			previewer = false,
+			layout_config = {
+				horizontal = { width = 0.5, height = 0.5 },
+			},
 		}
 	},
 
 	extensions = {
 		['ui-select'] = {
-			require('telescope.themes').get_cursor({})
+			require('telescope.themes').get_dropdown({})
 		},
 	},
 })
+
 telescope.load_extension('ui-select')
 telescope.load_extension('dap')
 telescope.load_extension('session-lens')

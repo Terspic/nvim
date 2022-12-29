@@ -32,7 +32,8 @@ cmp.setup({
 -- Use buffer source for `/`
 cmp.setup.cmdline('/', {
 	sources = {
-		{ name = 'buffer' }
+		{ name = 'buffer' },
+		{ name = 'nvim_lsp' },
 	}
 })
 
@@ -57,11 +58,21 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = ""})
 end
 
+
+-- Setup Mason
+require("mason").setup(
+)
+require('mason-lspconfig').setup({
+	ensure_installed = { 'sumneko_lua', 'rust_analyzer' },
+})
+
+
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_config = require('lspconfig')
 
 local function on_attach(_client, _bufnr)
+	-- should attach some kindbings
 end
 
 -- rust analyser
@@ -91,12 +102,6 @@ lsp_config.jedi_language_server.setup({
 
 -- Clangd
 lsp_config.clangd.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- Vim Language server
-lsp_config.vimls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
@@ -143,6 +148,7 @@ lsp_config.omnisharp.setup({
 	cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
 })
 
+
 -- HTML CSS Javascript Language server
 lsp_config.cssls.setup({
 	capabilities = capabilities,
@@ -153,10 +159,6 @@ lsp_config.html.setup({
 	on_attach = on_attach,
 })
 lsp_config.jsonls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lsp_config.eslint.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
