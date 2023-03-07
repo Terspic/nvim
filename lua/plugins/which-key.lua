@@ -23,11 +23,6 @@ wk.register({
 	['<F11>'] = { '<cmd>lua require("dap").step_into()<cr>', 'debug step into' },
 	['<F12>'] = { '<cmd>lua require("dap").step_out()<cr>', 'debug step out' },
 
-	['g'] = {
-		p = { '<cmd>bprev<cr>', 'previous buffer' },
-		n = { '<cmd>bnext<cr>', 'next buffer' },
-	},
-
 	['<leader>'] = {
 		o = {
 			name = "+others",
@@ -43,31 +38,6 @@ wk.register({
 			name = 'quickfix',
 			o = { '<cmd>bo copen<cr>', 'open' },
 			c = { '<cmd>cclose<cr>', 'close' },
-		},
-		c = {
-			name = '+code',
-			g = {
-				name = '+go to',
-				d = { '<cmd>lua vim.lsp.buf.definition()<cr>', 'definitions' },
-				D = { '<cmd>Telescope lsp_definitions initial_mode=normal<cr>', 'definitions' },
-				i = { '<cmd>Telescope lsp_implementations initial_mode=normal<cr>', 'implementations' },
-				t = { '<cmd>Telescope lsp_type_definitions initial_mode=normal<cr>', 'type def' },
-			},
-			s = {
-				name = '+symbols',
-				w = { '<cmd>Telescope lsp_workspace_symbols initial_mode=normal<cr>', 'workspace' },
-				d = { '<cmd>Telescope lsp_document_symbols initial_mode=normal<cr>', 'document' },
-			},
-			d = {
-				name = "+diagnostics",
-				d = { '<cmd>Telescope diagnostics initial_mode=normal<cr>', 'list' },
-				p = { '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'prev' },
-				n = { '<cmd>lua vim.diagnostic.goto_next()<cr>', 'next' },
-			},
-			a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'actions' },
-			r = { '<cmd>Telescope lsp_references initial_mode=normal<cr>', 'references' },
-			h = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'hover' },
-			f = { '<cmd>lua vim.lsp.buf.format()<cr>', 'format' },
 		},
 		t = {
 			name = '+tree',
@@ -142,12 +112,5 @@ wk.register({
 			t = { '<cmd>CMake select_build_type<cr>', 'build_type' },
 			x = { '<cmd>CMake clean<cr>', 'clean' },
 		},
-		b = {
-			name = "+buffers",
-			n = { "<cmd>bnext<cr>", "next" },
-			p = { "<cmd>bprev<cr>", "prev" },
-			e = { "<cmd>ene<cr>", "new buffer" },
-			d = { "<cmd>bd d%<cr>", "delete current buffer" },
-		}
 	}
 })

@@ -33,7 +33,6 @@ cmp.setup({
 cmp.setup.cmdline('/', {
 	sources = {
 		{ name = 'buffer' },
-		{ name = 'nvim_lsp' },
 	}
 })
 
@@ -47,32 +46,53 @@ cmp.setup.cmdline(':', {
 
 
 local signs = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " "
+	Error = " ",
+	Warn = " ",
+	Hint = " ",
+	Info = " "
 }
 
 for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = ""})
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
 
 -- Setup Mason
-require("mason").setup(
-)
+require("mason").setup({
+	ui = {
+		icons = {
+			package_installed = "✓",
+			package_pending = "➜",
+			package_uninstalled = "✗"
+		}
+	}
+})
 require('mason-lspconfig').setup({
-	ensure_installed = { 'sumneko_lua', 'rust_analyzer' },
+	ensure_installed = { 'lua_ls', 'rust_analyzer', 'clangd' },
 })
 
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities =
+	require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lsp_config = require('lspconfig')
 
-local function on_attach(_client, _bufnr)
-	-- should attach some kindbings
+local function on_attach(_, bufnr)
+	-- little helper for keymaps
+	local map = function(keybinding, action)
+		vim.keymap.set("n", keybinding, action, { silent = true, buffer = bufnr })
+	end
+
+	local builtin_telescope = require('telescope.builtin')
+
+	map("<leader>gd", vim.lsp.buf.definition)
+	map("<leader>gD", builtin_telescope.lsp_definitions)
+	map("<leader>gi", builtin_telescope.lsp_implementations)
+	map("<leader>cr", builtin_telescope.lsp_references)
+	map("<leader>cf", vim.lsp.buf.format)
+	map("<leader>ca", vim.lsp.buf.code_action)
+	map("<leader>ch", vim.lsp.buf.hover)
 end
 
 -- rust analyser
@@ -113,18 +133,13 @@ lsp_config.cmake.setup({
 })
 
 -- Lua Language server
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-lsp_config.sumneko_lua.setup {
+lsp_config.lua_ls.setup {
 	capabilities = capabilities,
 	on_attach = on_attach,
 	settings = {
 		Lua = {
 			runtime = {
 				version = 'LuaJIT',
-				path = runtime_path,
 			},
 			diagnostics = {
 				globals = { 'vim' },
@@ -141,13 +156,11 @@ lsp_config.sumneko_lua.setup {
 
 -- OmniSharp Language server
 local pid = vim.fn.getpid()
-local omnisharp_bin = '/usr/bin/omnisharp'
 lsp_config.omnisharp.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
-	cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
+	cmd = { "omnisharp", '--languageserver', '--hostPID', tostring(pid) },
 })
-
 
 -- HTML CSS Javascript Language server
 lsp_config.cssls.setup({
@@ -162,3 +175,6 @@ lsp_config.jsonls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+
+-- Lsp for javascript and typescript
+lsp_config.tsserver.setup({})

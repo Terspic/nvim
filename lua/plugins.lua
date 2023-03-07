@@ -17,7 +17,6 @@ packer.startup({ function()
 
 	-- Languages
 	use 'Shatur/neovim-cmake'
-	use 'sheerun/vim-polyglot'
 	use 'tikhomirov/vim-glsl'
 	use 'rust-lang/rust.vim'
 	use 'fladson/vim-kitty'
@@ -78,7 +77,7 @@ packer.startup({ function()
 	}
 	use {
 		'akinsho/bufferline.nvim',
-		config = function()  require("plugins.bufferline") end, -- require('plugins.bufferline') end,
+		config = function()  require("plugins.bufferline") end,
 	}
 
 	use {

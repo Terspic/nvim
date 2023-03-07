@@ -4,10 +4,10 @@ if not ok then
 end
 
 nvim_tree.setup{
-	disable_netrw = true,
+	disable_netrw = false,
 	update_cwd = true,
 	auto_reload_on_write = true,
-	open_on_tab = false,
+	open_on_tab = true,
 	actions = {
 		open_file = {
 			resize_window = true,

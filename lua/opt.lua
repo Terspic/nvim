@@ -23,8 +23,5 @@ vim.opt.syntax = "on"
 vim.o.background = "dark"
 vim.opt.termguicolors = true
 
--- colorscheme
-require("theme").kanagawa.setup()
-
 -- rust opt
 vim.g.rustfmt_autosave = true
