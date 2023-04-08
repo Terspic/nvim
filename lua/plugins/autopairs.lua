@@ -1,5 +1,8 @@
-local ok, autopairs = pcall(require, 'nvim-autopairs')
+local ok, npairs = pcall(require, 'nvim-autopairs')
 if not ok then
     return
 end
-autopairs.setup({})
+
+npairs.setup({})
+local Rule = require('nvim-autopairs.rule')
+npairs.add_rule(Rule("/*", "*/", { 'c', 'cpp' }))
