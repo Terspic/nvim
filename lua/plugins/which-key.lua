@@ -34,6 +34,11 @@ wk.register({
 			s = { '<cmd>source %<cr>', 'source current file' },
 
 		},
+		c = {
+			name = 'config',
+			r = { '<cmd>so ~/.config/nvim/init.lua<cr>', 'reload config' },
+			o = { '<cmd>cd ~/.config/nvim/<cr> <cmd>RestoreSession<cr>', 'open config' },
+		},
 		q = {
 			name = 'quickfix',
 			o = { '<cmd>bo copen<cr>', 'open' },
