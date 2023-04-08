@@ -21,6 +21,7 @@ packer.startup({ function()
 	use 'rust-lang/rust.vim'
 	use 'fladson/vim-kitty'
 	use 'ron-rs/ron.vim'
+	use 'khaveesh/vim-fish-syntax'
 
 	-- Themes
 	use 'Terspic/nord.nvim'
