@@ -39,29 +39,17 @@ local function ins_right(component)
 	table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
-	function ()
-		return '▊'
-	end,
-	color = { fg = colors.blue },
-	padding = { left = 0, right = 1 }
-}
-
-ins_left {
-	function ()
-		return ''
-	end,
-	color = function()
+local mode_to_color = function()
 		local mode_color = {
-			n = colors.green,
-			i = colors.lightblue,
+			n = colors.blue,
+			i = colors.green,
 			v = colors.turquoise,
 			[''] = colors.turquoise,
 			V = colors.turquoise,
 			c = colors.orange,
-			ce = colors.green,
-			cv = colors.green,
-			no = colors.green,
+			ce = colors.blue,
+			cv = colors.blue,
+			no = colors.blue,
 			s = colors.violet,
 			S = colors.violet,
 			r = colors.yellow,
@@ -73,7 +61,21 @@ ins_left {
 			t = colors.blue
 		}
 		return { fg = mode_color[vim.fn.mode()] }
+	end
+
+ins_left {
+	function ()
+		return '▊'
 	end,
+	color = mode_to_color,
+	padding = { left = 0, right = 1 }
+}
+
+ins_left {
+	function ()
+		return ''
+	end,
+	color = mode_to_color,
 	padding = { right = 1 },
 }
 
