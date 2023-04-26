@@ -75,6 +75,7 @@
         "/home/julien/.local/share/nvim/site/pack/packer/start/vim-glsl/after",
         "/home/julien/.local/share/nvim/site/pack/packer/start/vim-polyglot/after",
         "/usr/share/vim/vimfiles",
-        "${3rd}/lfs/library"
+        "${3rd}/lfs/library",
+        "${3rd}/luv/library"
     ]
 }

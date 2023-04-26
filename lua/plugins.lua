@@ -80,10 +80,15 @@ packer.startup({ function()
 		'akinsho/bufferline.nvim',
 		config = function()  require("plugins.bufferline") end,
 	}
-
 	use {
-		'kyazdani42/nvim-tree.lua',
-		config = function() require('plugins.nvim-tree') end,
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v2.x",
+		requires = {
+		  "nvim-lua/plenary.nvim",
+		  "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+		  "MunifTanjim/nui.nvim",
+		},
+		config = function() require("plugins.neotree") end
 	}
 	use {
 		'nvim-telescope/telescope.nvim',

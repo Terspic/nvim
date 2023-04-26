@@ -86,13 +86,16 @@ local function on_attach(_, bufnr)
 
 	local builtin_telescope = require('telescope.builtin')
 
-	map("<leader>gd", vim.lsp.buf.definition)
-	map("<leader>gD", builtin_telescope.lsp_definitions)
+	local lsp_rename = require('lsp_ui').rename
+
+	map("gd", vim.lsp.buf.definition)
+	map("gD", builtin_telescope.lsp_definitions)
 	map("<leader>gi", builtin_telescope.lsp_implementations)
-	map("<leader>cr", builtin_telescope.lsp_references)
-	map("<leader>cf", vim.lsp.buf.format)
-	map("<leader>ca", vim.lsp.buf.code_action)
-	map("<leader>ch", vim.lsp.buf.hover)
+	map("<leader>lr", builtin_telescope.lsp_references)
+	map("<leader>lf", vim.lsp.buf.format)
+	map("<leader>la", vim.lsp.buf.code_action)
+	map("<F2>", lsp_rename)
+	map("K", vim.lsp.buf.hover)
 end
 
 -- rust analyser

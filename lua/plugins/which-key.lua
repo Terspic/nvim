@@ -6,18 +6,22 @@ end
 vim.cmd [[
 nnoremap <space> <Nop>
 let mapleader = " "
-
-nnoremap <silent> <c-Left> <cmd>vertical resize -3<cr>
-nnoremap <silent> <c-Right> <cmd>vertical resize +3<cr>
-nnoremap <silent> <c-Up> <cmd>resize +3<cr>
-nnoremap <silent> <c-Down> <cmd>resize -3<cr>
 ]]
 
+-- resizing windows
+vim.keymap.set("n", "<C-left>", "<cmd>vertical resize -3<cr>", { silent = true })
+vim.keymap.set("n", "<c-right>", "<cmd>vertical resize +3<cr>", { silent = true })
+vim.keymap.set("n", "<C-up>", "<cmd>resize +3<cr>", { silent = true })
+vim.keymap.set("n", "<C-down>", "<cmd>resize -3<cr>", { silent = true })
+
+-- remap C-w to C-movement
+vim.keymap.set("n", "<C-j>", "<C-w>j", {silent = true})
+vim.keymap.set("n", "<C-k>", "<C-w>k", {silent = true})
+vim.keymap.set("n", "<C-h>", "<C-w>h", {silent = true})
+vim.keymap.set("n", "<C-l>", "<C-w>l", {silent = true})
 
 wk.setup({})
-
 wk.register({
-	['<F2>'] = { '<cmd>lua require("lsp_ui").rename()<cr>', 'lsp rename' },
 	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug conitnue' },
 	['<F10>'] = { '<cmd>lua require("dap").step_over()<cr>', 'debug step over' },
 	['<F11>'] = { '<cmd>lua require("dap").step_into()<cr>', 'debug step into' },
@@ -25,31 +29,24 @@ wk.register({
 
 	['<leader>'] = {
 		o = {
-			name = "+others",
-			t = { '<cmd>ToggleTerm direction=horizontal<cr>', 'toggle terminal' },
-			c = { '<cmd>PackerCompile<cr>', 'compile packages' },
-			u = { '<cmd>PackerSync<cr>', 'update packages' },
-			i = { '<cmd>PackerInstall<cr>', 'install packages' },
-			r = { '<cmd>PackerClean<cr>', 'remove packages' },
-			s = { '<cmd>source %<cr>', 'source current file' },
-
+			name = "+open",
+			t = { '<cmd>ToggleTerm direction=horizontal<cr>', 'terminal' },
+			c = { '<cmd>cd ~/.config/nvim/<cr> <cmd>RestoreSession<cr>', 'config' },
+			q = { '<cmd>TroubleToggle quickfix<cr>', 'quickfix' },
+			x = { '<cmd>TroubleToggle<cr>', 'diagnostics' },
+			s = { '<cmd>RestoreSession<cr>', 'sessions' },
 		},
-		c = {
-			name = 'config',
+		n = {
+			name = "+nvim",
+			p = {
+				name = '+packages',
+				c = { '<cmd>PackerCompile<cr>', 'compile packages' },
+				u = { '<cmd>PackerSync<cr>', 'update packages' },
+				i = { '<cmd>PackerInstall<cr>', 'install packages' },
+				r = { '<cmd>PackerClean<cr>', 'remove packages' },
+			},
 			r = { '<cmd>so ~/.config/nvim/init.lua<cr>', 'reload config' },
-			o = { '<cmd>cd ~/.config/nvim/<cr> <cmd>RestoreSession<cr>', 'open config' },
-		},
-		q = {
-			name = 'quickfix',
-			o = { '<cmd>bo copen<cr>', 'open' },
-			c = { '<cmd>cclose<cr>', 'close' },
-		},
-		t = {
-			name = '+tree',
-			o = { '<cmd>NvimTreeOpen <cr>', 'open' },
-			c = { '<cmd>NvimTreeClose<cr>', 'close' },
-			t = { '<cmd>NvimTreeToggle<cr>', 'toggle' },
-			f = { '<cmd>NvimTreeFocus<cr>', 'focus' },
+			s = { '<cmd>source %<cr>', 'source current file' },
 		},
 		f = {
 			name = '+find',
@@ -74,6 +71,7 @@ wk.register({
 		s = {
 			name = '+session',
 			s = { '<cmd>SearchSession <cr>', 'search' },
+			v = { '<cmd>SaveSession <cr>', 'save' },
 		},
 		w = {
 			name = 'winshift',
@@ -83,14 +81,6 @@ wk.register({
 			l = { '<cmd>WinShift right<cr>', 'right' },
 			s = { '<cmd>WinShift swap<cr>', 'swap' },
 		},
-		x = {
-			name = 'trouble',
-			x = { '<cmd>TroubleToggle<cr>', 'toggle' },
-			w = { '<cmd>TroubleToggle workspace_diagnostics<cr>', 'workspace diagnostics' },
-			d = { '<cmd>TroubleToggle document_diagnostics<cr>', 'document diagnostics' },
-			q = { '<cmd>TroubleToggle quickfix<cr>', 'quickfix' },
-			l = { '<cmd>TroubleToggle loclist<cr>', 'loclist' },
-		},
 		g = {
 			name = '+git',
 			d = {
@@ -99,7 +89,10 @@ wk.register({
 				c = { '<cmd>DiffviewClose<cr>', 'close' },
 				f = { '<cmd>DiffviewFileHistory<cr>', 'file history' },
 				r = { '<cmd>DiffviewRefresh<cr>', 'refresh view' },
-			}
+			},
+			s = {
+				name = "stage"
+			},
 		},
 		p = {
 			name = "+md preview",
