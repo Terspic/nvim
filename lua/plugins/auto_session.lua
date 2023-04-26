@@ -10,7 +10,6 @@ auto_session.setup({
 	auto_session_suppress_dirs = { '~/' },
 
 	pre_save_cmds = {
-		'tabdo NvimTreeClose', 'tabfirst',
 		'ToggleTermToggleAll',
 	},
 	post_restore_cmds = { require('plugins.daputils').load_debug_configs }

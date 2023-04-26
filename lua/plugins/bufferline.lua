@@ -35,7 +35,7 @@ bufferline.setup({
 		end,
 		diagnostics_update_in_insert = true,
 		offsets = {
-			{ filetype = "NvimTree", text = "File Explorer", text_align = "center" },
+			-- { filetype = "NvimTree", text = "File Explorer", text_align = "center" },
 		},
 		color_icons = true, -- whether or not to add the filetype icon highlights
 		show_buffer_icons = true, -- disable filetype icons for buffers

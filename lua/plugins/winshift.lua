@@ -8,7 +8,6 @@ winshift.setup({
 		return require('winshift.lib').pick_window({
 			filter_rules = {
 				filtype = {
-					"NvimTree"
 				},
 			},
 		})
