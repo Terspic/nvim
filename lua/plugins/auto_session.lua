@@ -10,7 +10,7 @@ auto_session.setup({
 	auto_session_suppress_dirs = { '~/' },
 
 	pre_save_cmds = {
-		'ToggleTermToggleAll',
+		'ToggleTermToggleAll', 'NvimTreeClose'
 	},
 	post_restore_cmds = { require('plugins.daputils').load_debug_configs }
 })

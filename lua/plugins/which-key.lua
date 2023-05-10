@@ -31,10 +31,11 @@ wk.register({
 		o = {
 			name = "+open",
 			t = { '<cmd>ToggleTerm direction=horizontal<cr>', 'terminal' },
-			c = { '<cmd>cd ~/.config/nvim/<cr> <cmd>RestoreSession<cr>', 'config' },
+			c = { '<cmd>cd ~/.config/nvim/<cr> <cmd>SessionRestore<cr>', 'config' },
 			q = { '<cmd>TroubleToggle quickfix<cr>', 'quickfix' },
 			x = { '<cmd>TroubleToggle<cr>', 'diagnostics' },
-			s = { '<cmd>RestoreSession<cr>', 'sessions' },
+			s = { '<cmd>SearchSession<cr>', 'sessions' },
+			f = { '<cmd>NvimTreeToggle<cr>', 'file tree' },
 		},
 		n = {
 			name = "+nvim",
@@ -89,6 +90,13 @@ wk.register({
 				c = { '<cmd>DiffviewClose<cr>', 'close' },
 				f = { '<cmd>DiffviewFileHistory<cr>', 'file history' },
 				r = { '<cmd>DiffviewRefresh<cr>', 'refresh view' },
+			},
+			h = {
+				name = 'hunk',
+				K = { '<cmd>Gitsigns preview_hunk<cr>', 'preview hunk' },
+				u = { '<cmd>Gitsigns reset_hunk<cr>', 'reset hunk' },
+				n = { '<cmd>Gitsigns next_hunk<cr>', 'next hunk' },
+				p = { '<cmd>Gitsigns prev_hunk<cr>', 'prev hunk' },
 			},
 			s = {
 				name = "stage"

@@ -117,10 +117,12 @@ lsp_config.rust_analyzer.setup({
 	},
 })
 
--- Python Jedi
-lsp_config.jedi_language_server.setup({
+-- Python Lsp
+lsp_config.pylsp.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	settings = {
+	}
 })
 
 -- Clangd

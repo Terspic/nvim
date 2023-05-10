@@ -13,7 +13,7 @@ packer.startup({ function()
 	use 'wbthomason/packer.nvim'
 	use 'nvim-lua/plenary.nvim'
 	use 'MunifTanjim/nui.nvim'
-	use 'kyazdani42/nvim-web-devicons'
+	use 'nvim-tree/nvim-web-devicons'
 
 	-- Languages
 	use 'Shatur/neovim-cmake'
@@ -70,6 +70,9 @@ packer.startup({ function()
 		'sindrets/diffview.nvim',
 		config = function() require('plugins.diffview') end,
 	}
+	use {
+		'tpope/vim-fugitive'
+	}
 
 	-- UI Plugins
 	use {
@@ -81,14 +84,10 @@ packer.startup({ function()
 		config = function()  require("plugins.bufferline") end,
 	}
 	use {
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
-		requires = {
-		  "nvim-lua/plenary.nvim",
-		  "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-		  "MunifTanjim/nui.nvim",
-		},
-		config = function() require("plugins.neotree") end
+		'nvim-tree/nvim-tree.lua',
+		config = function()
+			require("plugins.nvimtree")
+		end
 	}
 	use {
 		'nvim-telescope/telescope.nvim',
@@ -146,6 +145,10 @@ packer.startup({ function()
 		'numToStr/Comment.nvim',
 		config = function() require('plugins.comment') end,
 	}
+	use {
+		'tpope/vim-surround'
+	}
+
 	if is_bootstrap then
 		packer.sync()
 	end
