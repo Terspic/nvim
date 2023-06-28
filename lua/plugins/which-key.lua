@@ -102,6 +102,24 @@ wk.register({
 				name = "stage"
 			},
 		},
+		c = {
+			t  = { ':lua require("crates").toggle()<cr>', 'toggle crates'},
+			r  = { ':lua require("crates").reload()<cr>', 'reload crates'},
+
+			s  = { ':lua require("crates").show_popup()<cr>', 'show info' },
+			v  = { ':lua require("crates").show_versions_popup()<cr>', 'show versions' },
+			f  = { ':lua require("crates").show_features_popup()<cr>', 'show features' },
+			d  = { ':lua require("crates").show_dependencies_popup()<cr>', 'show dependencies' },
+
+			u  = { ':lua require("crates").update_crate()<cr>', 'update crate' },
+			U  = { ':lua require("crates").upgrade_crate()<cr>', 'upgrade crate'},
+			A  = { ':lua require("crates").upgrade_all_crates()<cr>', 'upgrade all crates'},
+
+			H  = { ':lua require("crates").open_homepage()<cr>', 'open homepage' },
+			R  = { ':lua require("crates").open_repository()<cr>', 'open repo' },
+			D  = { ':lua require("crates").open_documentation()<cr>', 'open documentation' },
+			C  = { ':lua require("crates").open_crates_io()<cr>', 'open crates.io'},
+		},
 		p = {
 			name = "+md preview",
 			p = { '<cmd>MarkdownPreview<cr>', 'preview' },
@@ -118,5 +136,14 @@ wk.register({
 			t = { '<cmd>CMake select_build_type<cr>', 'build_type' },
 			x = { '<cmd>CMake clean<cr>', 'clean' },
 		},
+		q = { '<cmd>tabc<cr>', 'close current tab' },
+		b = {
+			c = {"<cmd>bd %<cr>", "close buffer"},
+			C = {"<cmd>%bd|e#<cr>", "close all buffer"},
+		}
+	},
+	g = {
+		n = { "<cmd>bnext<cr>", "next buffer" },
+		p = { "<cmd>bprev<cr>", "prev buffer" },
 	}
 })

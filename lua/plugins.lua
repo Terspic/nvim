@@ -19,6 +19,12 @@ packer.startup({ function()
 	use 'Shatur/neovim-cmake'
 	use 'tikhomirov/vim-glsl'
 	use 'rust-lang/rust.vim'
+	use {
+		'Saecki/crates.nvim',
+		config = function ()
+			require("plugins.crates")
+		end
+	}
 	use 'fladson/vim-kitty'
 	use 'ron-rs/ron.vim'
 	use 'khaveesh/vim-fish-syntax'
@@ -122,12 +128,14 @@ packer.startup({ function()
 		'goolord/alpha-nvim',
 		config = function() require('plugins.alpha') end,
 	}
-	use {
-		'iamcco/markdown-preview.nvim',
-		run = "cd app && npm install",
-	}
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = function() vim.fn["mkdp#util#install"]() end,
+	})
+
 	use {
 		'j-hui/fidget.nvim',
+		tag = "legacy",
 		config = function() require('plugins.fidget') end,
 	}
 
