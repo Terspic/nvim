@@ -63,6 +63,7 @@ wk.register({
 			},
 			r = { '<cmd>so ~/.config/nvim/init.lua<cr>', 'reload config' },
 			s = { '<cmd>source %<cr>', 'source current file' },
+			c = { '<cmd>CreateClass<cr>', 'Create a new C class' },
 		},
 		f = {
 			name = '+find',
@@ -148,7 +149,7 @@ wk.register({
 		b = {
 			c = {"<cmd>bd %<cr>", "close buffer"},
 			C = {"<cmd>%bd|e#<cr>", "close all buffer"},
-		}
+		},
 	},
 	["<tab>"] = { "<cmd>bn<cr>", "next buffer" },
 	["<s-tab>"] = { "<cmd>bp<cr>", "prev buffer" },
