@@ -1,2 +1,2 @@
-require("langages.python")
-require("langages.rust")
+require("languages.python")
+require("languages.rust")

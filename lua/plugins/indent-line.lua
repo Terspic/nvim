@@ -1,1 +1,14 @@
-vim.g.indent_blankline_filetype_exclude = {'alpha', 'toggleterm'}
+local ok, ibl = pcall(require, "ibl")
+
+if not ok then
+	return
+end
+
+ibl.setup({
+	indent = {
+		char = "▎",
+	},
+	exclude = {
+		filetypes = {'alpha', 'toggleterm'}
+	}
+})

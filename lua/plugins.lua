@@ -17,7 +17,6 @@ packer.startup({ function()
 
 	-- Languages
 	use 'Shatur/neovim-cmake'
-	use 'tikhomirov/vim-glsl'
 	use 'rust-lang/rust.vim'
 	use {
 		'Saecki/crates.nvim',
@@ -26,11 +25,8 @@ packer.startup({ function()
 		end
 	}
 	use 'fladson/vim-kitty'
-	use 'ron-rs/ron.vim'
-	use 'khaveesh/vim-fish-syntax'
 
 	-- Themes
-	use 'Terspic/nord.nvim'
 	use "rebelot/kanagawa.nvim"
 
 	-- LSP plugins
@@ -50,8 +46,7 @@ packer.startup({ function()
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-cmdline',
 			'onsails/lspkind-nvim',
-			'hrsh7th/cmp-vsnip',
-			'hrsh7th/vim-vsnip',
+			'L3MON4D3/LuaSnip',
 		},
 	}
 
@@ -61,11 +56,15 @@ packer.startup({ function()
 		run = ':TSUpdate',
 	}
 	use {
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	}
+	use {
 		'mfussenegger/nvim-dap',
 		requires = { 'rcarriga/nvim-dap-ui' },
 		config = function() require('plugins.dap') end,
 	}
-	use 'mfussenegger/nvim-dap-python'
 
 	-- Git plugins
 	use {
@@ -83,11 +82,14 @@ packer.startup({ function()
 	-- UI Plugins
 	use {
 		'nvim-lualine/lualine.nvim',
-		config = function() require('plugins.lualine') end,
+		config = function() require('plugins.lualine')
+		end,
 	}
 	use {
-		'akinsho/bufferline.nvim',
-		config = function()  require("plugins.bufferline") end,
+		"tiagovla/scope.nvim",
+		config = function ()
+			require("plugins.scope")
+		end
 	}
 	use {
 		'nvim-tree/nvim-tree.lua',
@@ -116,10 +118,6 @@ packer.startup({ function()
 		config = function() require('plugins.autopairs') end,
 	}
 	use {
-		'sindrets/winshift.nvim',
-		config = function() require('plugins.winshift') end,
-	}
-	use {
 		'rmagatti/auto-session',
 		requires = { 'rmagatti/session-lens' },
 		config = function() require('plugins.auto_session') end,
@@ -128,15 +126,17 @@ packer.startup({ function()
 		'goolord/alpha-nvim',
 		config = function() require('plugins.alpha') end,
 	}
-	use({
-		"iamcco/markdown-preview.nvim",
-		run = function() vim.fn["mkdp#util#install"]() end,
-	})
 
 	use {
 		'j-hui/fidget.nvim',
-		tag = "legacy",
 		config = function() require('plugins.fidget') end,
+	}
+	use {
+		"folke/todo-comments.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function ()
+			require("plugins.todo")
+		end
 	}
 
 	-- Misc
@@ -155,6 +155,9 @@ packer.startup({ function()
 	}
 	use {
 		'tpope/vim-surround'
+	}
+	use {
+		'mbbill/undotree'
 	}
 
 	if is_bootstrap then

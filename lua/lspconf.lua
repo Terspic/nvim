@@ -5,8 +5,8 @@ local lspkind = require('lspkind')
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body)
-		end,
+			require("luasnip").lsp_expand(args.body)
+		end
 	},
 	mapping = {
 		['<C-Space>'] = cmp.mapping(cmp.mapping.complete({})),
@@ -16,7 +16,6 @@ cmp.setup({
 	},
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
-		{ name = 'vsnip' },
 		{ name = 'buffer' },
 		{ name = 'crates' },
 	}),
@@ -46,10 +45,10 @@ cmp.setup.cmdline(':', {
 
 
 local signs = {
-	Error = " ",
-	Warn = " ",
-	Hint = " ",
-	Info = " "
+	Error = " ",
+	Warn = " ",
+	Hint = " ",
+	Info = " "
 }
 
 for type, icon in pairs(signs) do
@@ -94,6 +93,7 @@ local function on_attach(_, bufnr)
 	map("<leader>lr", builtin_telescope.lsp_references)
 	map("<leader>lf", vim.lsp.buf.format)
 	map("<leader>la", vim.lsp.buf.code_action)
+	map("<leader>li", "<cmd>LspInfo<cr>")
 	map("<F2>", lsp_rename)
 	map("K", vim.lsp.buf.hover)
 end
@@ -150,7 +150,9 @@ lsp_config.lua_ls.setup {
 				globals = { 'vim' },
 			},
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
+				library = {
+					vim.api.nvim_get_runtime_file("", true),
+				},
 			},
 			telemetry = {
 				enable = false,
@@ -167,19 +169,5 @@ lsp_config.omnisharp.setup({
 	cmd = { "omnisharp", '--languageserver', '--hostPID', tostring(pid) },
 })
 
--- HTML CSS Javascript Language server
-lsp_config.cssls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lsp_config.html.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-lsp_config.jsonls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- Lsp for javascript and typescript
-lsp_config.tsserver.setup({})
+-- WGSL Server
+lsp_config.wgsl_analyzer.setup({})

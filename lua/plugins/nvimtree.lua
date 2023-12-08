@@ -5,7 +5,7 @@ if not ok then
 end
 
 tree.setup({
-	disable_netrw = true,
+	disable_netrw = false,
 
 	git = {
 		enable = false,

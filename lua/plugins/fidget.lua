@@ -3,11 +3,10 @@ if not ok then
 	return
 end
 
-fidget.setup{
-	text = {
-		spinner = "dots"
-	},
-	window = {
-		blend = 100
-	},
-}
+fidget.setup({
+	notification = {
+		window = {
+			winblend = 100
+		}
+	}
+})

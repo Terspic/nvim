@@ -20,6 +20,19 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", {silent = true})
 vim.keymap.set("n", "<C-h>", "<C-w>h", {silent = true})
 vim.keymap.set("n", "<C-l>", "<C-w>l", {silent = true})
 
+local toggle_qf = function ()
+	local qf = 0
+	for _, win in pairs(vim.fn.getwininfo()) do
+		qf = win.quickfix
+	end
+
+	if qf == 1 then
+		vim.cmd "cclose"
+	else
+		vim.cmd "copen"
+	end
+end
+
 wk.setup({})
 wk.register({
 	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug conitnue' },
@@ -29,13 +42,15 @@ wk.register({
 
 	['<leader>'] = {
 		o = {
-			name = "+open",
-			t = { '<cmd>ToggleTerm direction=horizontal<cr>', 'terminal' },
+			name = '+open',
+			t = { '<cmd>ToggleTerm direction=float<cr>', 'terminal' },
 			c = { '<cmd>cd ~/.config/nvim/<cr> <cmd>SessionRestore<cr>', 'config' },
-			q = { '<cmd>TroubleToggle quickfix<cr>', 'quickfix' },
+			q = { toggle_qf, 'quickfix' },
 			x = { '<cmd>TroubleToggle<cr>', 'diagnostics' },
 			s = { '<cmd>SearchSession<cr>', 'sessions' },
 			f = { '<cmd>NvimTreeToggle<cr>', 'file tree' },
+			d = { '<cmd>TodoTrouble<cr>', 'open TODOs' },
+			u = { '<cmd>UndotreeToggle<cr>', 'open undo tree' },
 		},
 		n = {
 			name = "+nvim",
@@ -74,14 +89,6 @@ wk.register({
 			s = { '<cmd>SearchSession <cr>', 'search' },
 			v = { '<cmd>SaveSession <cr>', 'save' },
 		},
-		w = {
-			name = 'winshift',
-			k = { '<cmd>WinShift up<cr>', 'up' },
-			j = { '<cmd>WinShift down<cr>', 'down' },
-			h = { '<cmd>WinShift left<cr>', 'left' },
-			l = { '<cmd>WinShift right<cr>', 'right' },
-			s = { '<cmd>WinShift swap<cr>', 'swap' },
-		},
 		g = {
 			name = '+git',
 			d = {
@@ -103,6 +110,7 @@ wk.register({
 			},
 		},
 		c = {
+			name = "crates",
 			t  = { ':lua require("crates").toggle()<cr>', 'toggle crates'},
 			r  = { ':lua require("crates").reload()<cr>', 'reload crates'},
 
@@ -129,21 +137,19 @@ wk.register({
 		m = {
 			name = 'cmake',
 			c = { '<cmd>CMake configure<cr>', 'configure' },
-			R = { '<cmd>CMake run<cr>', 'run' },
+			r = { '<cmd>CMake run<cr>', 'run' },
 			b = { '<cmd>CMake build<cr>', 'build' },
-			r = { '<cmd>CMake build_and_run<cr>', 'build and run' },
+			R = { '<cmd>CMake build_and_run<cr>', 'build and run' },
 			s = { '<cmd>CMake select_target<cr>', 'target' },
 			t = { '<cmd>CMake select_build_type<cr>', 'build_type' },
 			x = { '<cmd>CMake clean<cr>', 'clean' },
 		},
-		q = { '<cmd>tabc<cr>', 'close current tab' },
+		q = { '<cmd>bd<cr>', 'close current buffer' },
 		b = {
 			c = {"<cmd>bd %<cr>", "close buffer"},
 			C = {"<cmd>%bd|e#<cr>", "close all buffer"},
 		}
 	},
-	g = {
-		n = { "<cmd>bnext<cr>", "next buffer" },
-		p = { "<cmd>bprev<cr>", "prev buffer" },
-	}
+	["<tab>"] = { "<cmd>bn<cr>", "next buffer" },
+	["<s-tab>"] = { "<cmd>bp<cr>", "prev buffer" },
 })

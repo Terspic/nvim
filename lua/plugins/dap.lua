@@ -15,8 +15,6 @@ dap.adapters.coreclr = {
 	args = { '--interpreter=vscode' },
 }
 
-require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
-
 local daputils = require('plugins.daputils')
 daputils.load_debug_configs()
 
