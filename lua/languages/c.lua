@@ -1,4 +1,5 @@
 local Path = require("plenary.path")
+local ScanDir = require("plenary.scandir")
 
 local function create_class(path)
 	-- no path were provided
@@ -41,12 +42,35 @@ local function create_class(path)
 	source:write(source_content, "w")
 end
 
+local function open_class(class_name)
+	local header_file = class_name .. ".h"
+	local source_file = class_name .. ".c"
+
+	local header_path = ScanDir.scan_dir(".", { search_pattern = header_file })[1]
+	local source_path = ScanDir.scan_dir(".", { search_pattern = source_file })[1]
+
+	if header_path == nil or source_path == nil then
+		print(class_name .. "was not found or was not unique")
+		return
+	end
+
+	vim.cmd("tabnew")
+	vim.cmd("e " .. header_path)
+	vim.cmd("vsp " .. source_path)
+end
+
 vim.api.nvim_create_user_command(
 	'CreateClass',
-	function ()
-		local user_input = vim.fn.input("Class path : ")
-		create_class(user_input)
-		-- pcall(create_class, user_input)
+	function (opts)
+		create_class(opts.fargs[1])
 	end,
-	{}
+	{ nargs = 1 }
+)
+
+vim.api.nvim_create_user_command(
+	'OpenClass',
+	function (opts)
+		open_class(opts.fargs[1])
+	end,
+	{ nargs = 1 }
 )

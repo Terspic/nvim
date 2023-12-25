@@ -18,6 +18,7 @@ packer.startup({ function()
 	-- Languages
 	use 'Shatur/neovim-cmake'
 	use 'rust-lang/rust.vim'
+	use 'adelarsq/neofsharp.vim'
 	use {
 		'Saecki/crates.nvim',
 		config = function ()

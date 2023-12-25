@@ -5,13 +5,20 @@ end
 
 ts_configs.setup({
 	ensure_installed = {'c', 'cpp', 'rust', 'lua', 'glsl'},
-
+	ignore_install = {},
+	auto_install = true,
 	sync_install = true,
 
 	highlight = {
 		enable = true,
 		additional_vim_regex_syntax = false,
 	},
+
+	indent = {
+		enable = true
+	},
+
+	modules = {},
 
 	textobjects = {
 		select = {
@@ -33,7 +40,15 @@ ts_configs.setup({
 				-- parameter
 				["ai"] = "@conditional.outer",
 				["ii"] = "@conditional.inner",
+
+				-- loops
+				["al"] = "@loop.outer",
+				["il"] = "@loop.inner",
 			}
+		},
+
+		move = {
+			enable = true,
 		}
 	}
 })

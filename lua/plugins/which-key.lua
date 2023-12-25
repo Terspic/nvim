@@ -20,19 +20,6 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", {silent = true})
 vim.keymap.set("n", "<C-h>", "<C-w>h", {silent = true})
 vim.keymap.set("n", "<C-l>", "<C-w>l", {silent = true})
 
-local toggle_qf = function ()
-	local qf = 0
-	for _, win in pairs(vim.fn.getwininfo()) do
-		qf = win.quickfix
-	end
-
-	if qf == 1 then
-		vim.cmd "cclose"
-	else
-		vim.cmd "copen"
-	end
-end
-
 wk.setup({})
 wk.register({
 	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug conitnue' },
@@ -43,14 +30,16 @@ wk.register({
 	['<leader>'] = {
 		o = {
 			name = '+open',
-			t = { '<cmd>ToggleTerm direction=float<cr>', 'terminal' },
+			t = { '<cmd>ToggleTerm direction=float<cr>', 'terminal float' },
+			T = { '<cmd>ToggleTerm direction=horizontal<cr>', 'terminal horizontal' },
 			c = { '<cmd>cd ~/.config/nvim/<cr> <cmd>SessionRestore<cr>', 'config' },
-			q = { toggle_qf, 'quickfix' },
-			x = { '<cmd>TroubleToggle<cr>', 'diagnostics' },
+			q = { '<cmd>TroubleToggle quickfix<cr>', 'quickfix' },
+			x = { '<cmd>TroubleToggle document_diagnostics<cr>', 'diagnostics' },
 			s = { '<cmd>SearchSession<cr>', 'sessions' },
 			f = { '<cmd>NvimTreeToggle<cr>', 'file tree' },
 			d = { '<cmd>TodoTrouble<cr>', 'open TODOs' },
 			u = { '<cmd>UndotreeToggle<cr>', 'open undo tree' },
+			e = { '<cmd>TroubleToggle<cr>', 'Toggle trouble' },
 		},
 		n = {
 			name = "+nvim",
@@ -128,12 +117,6 @@ wk.register({
 			R  = { ':lua require("crates").open_repository()<cr>', 'open repo' },
 			D  = { ':lua require("crates").open_documentation()<cr>', 'open documentation' },
 			C  = { ':lua require("crates").open_crates_io()<cr>', 'open crates.io'},
-		},
-		p = {
-			name = "+md preview",
-			p = { '<cmd>MarkdownPreview<cr>', 'preview' },
-			t = { '<cmd>MarkdownPreviewToggle<cr>', 'toggle' },
-			s = { '<cmd>MarkdownPreviewStopt<cr>', 'stop' }
 		},
 		m = {
 			name = 'cmake',

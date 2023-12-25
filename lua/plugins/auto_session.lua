@@ -6,13 +6,16 @@ end
 vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
 
 auto_session.setup({
+	auto_save_enabled = true,
 	log_level = 'info',
 	auto_session_suppress_dirs = { '~/' },
 
 	pre_save_cmds = {
 		'ToggleTermToggleAll', 'NvimTreeClose'
 	},
-	post_restore_cmds = { require('plugins.daputils').load_debug_configs }
+	post_restore_cmds = {
+		require('plugins.daputils').load_debug_configs,
+	}
 })
 require('session-lens').setup {
 	previewer = false,
