@@ -5,7 +5,8 @@
         "assign-type-mismatch",
         "param-type-mismatch",
         "inject-field",
-        "missing-fields"
+        "missing-fields",
+        "redundant-parameter"
     ],
     "Lua.diagnostics.globals": [
         "vim",

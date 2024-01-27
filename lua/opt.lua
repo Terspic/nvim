@@ -10,6 +10,7 @@ vim.opt.mouse = "a"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
+vim.opt.expandtab = true
 vim.opt.updatetime = 100
 vim.opt.encoding = "utf-8"
 vim.opt.splitbelow = true
@@ -17,7 +18,6 @@ vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.hls = false
 vim.opt.ic = false
-vim.opt.showtabline = 2
 
 vim.opt.syntax = "on"
 vim.o.background = "dark"

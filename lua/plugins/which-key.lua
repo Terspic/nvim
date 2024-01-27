@@ -22,7 +22,7 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", {silent = true})
 
 wk.setup({})
 wk.register({
-	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug conitnue' },
+	['<F5>'] = { '<cmd>lua require("dap").continue()<cr>', 'debug continue' },
 	['<F10>'] = { '<cmd>lua require("dap").step_over()<cr>', 'debug step over' },
 	['<F11>'] = { '<cmd>lua require("dap").step_into()<cr>', 'debug step into' },
 	['<F12>'] = { '<cmd>lua require("dap").step_out()<cr>', 'debug step out' },

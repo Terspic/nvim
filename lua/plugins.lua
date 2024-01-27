@@ -3,8 +3,8 @@ local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nv
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	is_bootstrap = true
-  	vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-  	vim.cmd [[packadd packer.nvim]]
+	vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+	vim.cmd [[packadd packer.nvim]]
 end
 
 local packer = require('packer')
@@ -32,8 +32,8 @@ packer.startup({ function()
 
 	-- LSP plugins
 	use 'neovim/nvim-lspconfig'
-    use {"williamboman/mason.nvim" }
-    use {"williamboman/mason-lspconfig.nvim" }
+	use {"williamboman/mason.nvim" }
+	use {"williamboman/mason-lspconfig.nvim" }
 
 	use {
 		'jose-elias-alvarez/null-ls.nvim',
@@ -139,6 +139,12 @@ packer.startup({ function()
 			require("plugins.todo")
 		end
 	}
+    use {
+        "willothy/nvim-cokeline",
+        config = function ()
+            require("plugins.cokeline")
+        end
+    }
 
 	-- Misc
 	use {
@@ -160,6 +166,23 @@ packer.startup({ function()
 	use {
 		'mbbill/undotree'
 	}
+	use {
+		'lukas-reineke/headlines.nvim',
+		config = function ()
+			local theme = require("kanagawa.colors").setup()
+			vim.cmd("hi CodeBlock guibg="..theme.palette.sumiInk0)
+			vim.cmd("hi Headline guibg="..theme.palette.sumiInk3)
+			require("headlines").setup({
+				markdown = {
+					fat_headlines = false,
+				}
+			})
+		end
+	}
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = function() vim.fn["mkdp#util#install"]() end,
+	})
 
 	if is_bootstrap then
 		packer.sync()

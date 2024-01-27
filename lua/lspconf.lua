@@ -1,6 +1,5 @@
 -- Setup nvim-cmp.
 local cmp = require 'cmp'
-local lspkind = require('lspkind')
 
 cmp.setup({
 	snippet = {
@@ -20,12 +19,24 @@ cmp.setup({
 		{ name = 'crates' },
 	}),
 	-- display icons in completion popup
-	formatting = {
-		format = lspkind.cmp_format({
-			mode = 'symbol_text',
-			maxwidth = 50,
-		})
-	}
+    window = {
+        completion = {
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            col_offset = -3,
+            side_padding = 0,
+        },
+    },
+    formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            kind.kind = " " .. (strings[1] or "") .. " "
+            kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+            return kind
+        end,
+    },
 })
 
 -- Use buffer source for `/`
@@ -55,7 +66,6 @@ for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
-
 
 -- Setup Mason
 require("mason").setup({
@@ -170,4 +180,13 @@ lsp_config.omnisharp.setup({
 })
 
 -- WGSL Server
-lsp_config.wgsl_analyzer.setup({})
+lsp_config.wgsl_analyzer.setup({
+    capabilities = capabilities,
+    on_attach = on_attach
+})
+
+-- bash server
+lsp_config.bashls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach
+})
