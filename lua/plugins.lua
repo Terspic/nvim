@@ -36,10 +36,6 @@ packer.startup({ function()
 	use {"williamboman/mason-lspconfig.nvim" }
 
 	use {
-		'jose-elias-alvarez/null-ls.nvim',
-		config = function() require('plugins.null_ls') end
-	}
-	use {
 		'hrsh7th/nvim-cmp',
 		requires = {
 			'hrsh7th/cmp-nvim-lsp',
