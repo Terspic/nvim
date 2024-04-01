@@ -8,9 +8,10 @@ toggle_term.setup({})
 function _G.set_terminal_keymaps()
   local opts = { noremap = true }
   vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 'n', '<esc>', '<cmd>ToggleTerm<cr>', opts)
 end
 
-local group = vim.api.nvim_create_augroup("ToggleTerm", { clear = true })
+local group = vim.api.nvim_create_augroup("ToggleTerm", {})
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "term://*",
   callback = set_terminal_keymaps,

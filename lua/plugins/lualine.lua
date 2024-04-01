@@ -91,7 +91,7 @@ local config = {
         },
         lualine_z = {},
 	},
-	extensions = { 'toggleterm', 'quickfix' }
+	extensions = { 'quickfix' }
 }
 
 lualine.setup(config)

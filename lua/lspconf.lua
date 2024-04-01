@@ -190,3 +190,23 @@ lsp_config.bashls.setup({
     capabilities = capabilities,
     on_attach = on_attach
 })
+
+lsp_config.html.setup({
+    capabilities = capabilities,
+    on_attach = on_attach
+})
+
+lsp_config.cssls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach
+})
+
+lsp_config.tsserver.setup({
+    capabilities = capabilities,
+    on_attach = on_attach
+})
+
+lsp_config.ols.setup({
+    capabilities = capabilities,
+    on_attach = on_attach
+})

@@ -7,10 +7,10 @@ end
 local get_hex = require('cokeline.hlgroups').get_hl_attr
 local colors = require('kanagawa.colors').setup().palette
 local signs = {
-	Error = " ",
-	Warn = " ",
-	Hint = " ",
-	Info = " "
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " "
 }
 
 
@@ -25,7 +25,7 @@ cokeline.setup({
                 and colors.fujiWhite
                 or get_hex('Comment', 'fg')
         end,
-        bg = function (buffer)
+        bg = function(buffer)
             return buffer.is_focused and colors.sumiInk4 or colors.sumiInk2
         end,
         underline = function(buffer)
@@ -37,7 +37,7 @@ cokeline.setup({
         filetype = { "NvimTree" },
         components = {
             {
-                text = function (buffer)
+                text = function(buffer)
                     return '    ' .. '󰙅' .. ' ' .. buffer.filetype
                 end,
                 bold = true,
@@ -50,11 +50,11 @@ cokeline.setup({
     },
     components = {
         {
-            text = function(buffer) return '    ' .. buffer.devicon.icon end,
+            text = function(buffer) return '    ' .. buffer.devicon.icon .. ' ' end,
             fg = function(buffer) return buffer.devicon.color end,
         },
         {
-            text = function(buffer) return buffer.filename .. '  ' end,
+            text = function(buffer) return buffer.unique_prefix .. buffer.filename .. '  ' end,
         },
         { -- errors
             text = function(buffer)
@@ -71,7 +71,12 @@ cokeline.setup({
             fg = colors.roninYellow
         },
         {
-            text = '󰖭',
+            text = function(buffer)
+                if buffer.is_modified then
+                    return ''
+                end
+                return '󰖭'
+            end,
             on_click = function(_, _, _, _, buffer)
                 buffer:delete()
             end
