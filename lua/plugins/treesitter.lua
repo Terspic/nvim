@@ -10,6 +10,7 @@ ts_configs.setup({
 
     highlight = {
         enable = true,
+        disable = { "markdown" },
         additional_vim_regex_syntax = false,
     },
 

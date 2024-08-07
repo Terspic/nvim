@@ -5,7 +5,7 @@ end
 
 local conditions = {
     lsp_running = function ()
-        return #vim.lsp.get_active_clients() ~= 0
+        return #vim.lsp.get_clients() ~= 0
     end
 }
 
@@ -47,7 +47,7 @@ local config = {
             {
                 -- return lsp name if there is one running for the current filetype
                 function ()
-                    local clients = vim.lsp.get_active_clients()
+                    local clients = vim.lsp.get_clients()
                     local filetype = vim.bo.filetype
                     -- iter through running lsp 
                     for _, client in ipairs(clients) do

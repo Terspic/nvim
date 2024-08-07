@@ -3,7 +3,7 @@ if not ok then
     return
 end
 
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 auto_session.setup({
 	auto_save_enabled = true,
